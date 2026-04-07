@@ -9,10 +9,10 @@ type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - AI Platform
+  - Enterprise AI
+  - Kubernetes
   - LLM Gateway
   - MLOps
-  - Kubernetes
-  - Enterprise AI
 url: >-
   https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/apis.yml
 created: '2026-03-16'
@@ -33,9 +33,9 @@ apis:
     baseURL: https://gateway.truefoundry.ai/api/llm
     tags:
       - AI Gateway
-      - LLM
       - Chat Completions
       - Embeddings
+      - LLM
     properties:
       - type: Documentation
         url: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
@@ -56,10 +56,10 @@ apis:
     humanURL: https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-server-getting-started
     baseURL: https://gateway.truefoundry.ai
     tags:
-      - MCP
       - Agent Tools
-      - Tool Registry
       - AI Agents
+      - MCP
+      - Tool Registry
     properties:
       - type: Documentation
         url: https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-server-getting-started
@@ -76,10 +76,10 @@ apis:
     humanURL: https://www.truefoundry.com/docs
     baseURL: https://app.truefoundry.com/api
     tags:
-      - Platform
-      - MLOps
       - Deployments
       - Management
+      - MLOps
+      - Platform
     properties:
       - type: Documentation
         url: https://www.truefoundry.com/docs
@@ -96,10 +96,10 @@ apis:
     humanURL: https://www.truefoundry.com/docs/introduction-to-a-service
     baseURL: https://app.truefoundry.com
     tags:
-      - Model Serving
-      - LLM Inference
       - Kubernetes
+      - LLM Inference
       - MLOps
+      - Model Serving
     properties:
       - type: Documentation
         url: https://www.truefoundry.com/docs/introduction-to-a-service
@@ -114,10 +114,10 @@ apis:
     humanURL: https://www.truefoundry.com/docs/model-registry
     baseURL: https://app.truefoundry.com
     tags:
-      - Model Registry
-      - MLOps
-      - Versioning
       - Machine Learning
+      - MLOps
+      - Model Registry
+      - Versioning
     properties:
       - type: Documentation
         url: https://www.truefoundry.com/docs/model-registry
