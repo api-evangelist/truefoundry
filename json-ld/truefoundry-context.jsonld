@@ -1,0 +1,42 @@
+{
+  "@context": {
+    "@vocab": "https://schema.truefoundry.com/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ml": "https://www.w3.org/ns/ml-schema#",
+
+    "Model": "ml:Model",
+    "ChatCompletion": "schema:Event",
+    "Embedding": "schema:ItemList",
+    "Batch": "schema:DataFeed",
+    "File": "schema:MediaObject",
+
+    "model": "schema:identifier",
+    "messages": "schema:hasPart",
+    "role": "schema:roleName",
+    "content": "schema:text",
+    "temperature": "samplingTemperature",
+    "max_tokens": "maxOutputTokens",
+    "stream": "schema:isLiveBroadcast",
+    "tools": "schema:potentialAction",
+    "usage": "resourceUsage",
+    "prompt_tokens": "promptTokens",
+    "completion_tokens": "completionTokens",
+    "total_tokens": "totalTokens",
+    "created": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:integer"
+    },
+    "finish_reason": "completionReason",
+    "choices": "schema:result",
+    "embedding": "schema:value",
+    "dimensions": "vectorDimensions",
+    "query": "schema:query",
+    "documents": "schema:itemListElement",
+    "relevance_score": "schema:ratingValue",
+    "flagged": "isViolation",
+    "purpose": "schema:purpose",
+    "provider": "schema:provider",
+    "owned_by": "schema:author"
+  }
+}

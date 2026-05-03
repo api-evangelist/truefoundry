@@ -1,116 +1,88 @@
-# TrueFoundry (truefoundry)
+# TrueFoundry
+
 TrueFoundry is a Kubernetes-native enterprise AI platform for deploying and managing agentic AI workloads. It provides an AI Gateway, MCP Gateway, model serving, fine-tuning, and a full MLOps platform that works across on-premises, VPC, hybrid, or public cloud environments.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/apis.yml)
-
-## Scope
-
-- **Type:** Index 
-- **Position:** Consuming 
-- **Access:** 3rd-Party 
-
-## Tags:
-
- - AI Platform, LLM Gateway, MLOps, Kubernetes, Enterprise AI
-
-## Timestamps
-
-- **Created:** 2026-03-16 
-- **Modified:** 2026-03-18 
+**URL:** [apis.yml](https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/apis.yml)
 
 ## APIs
 
 ### TrueFoundry AI Gateway API
-The TrueFoundry AI Gateway API is a proxy layer that sits between applications and LLM providers, enabling unified access to 1000+ language models through a single OpenAI-compatible endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management with centralized authentication, rate limiting, budget controls, and observability.
 
-**Human URL:** [https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway](https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway)
+OpenAI-compatible proxy layer providing unified access to 1000+ LLMs across 30+ providers through a single endpoint.
 
+- **Base URL:** `https://app.truefoundry.com/api/llm`
+- **Authentication:** Bearer token (TrueFoundry API key)
+- **Documentation:** [AI Gateway Docs](https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway)
 
-#### Tags:
-
- - AI Gateway, LLM, Chat Completions, Embeddings
-
-#### Properties
-
-- [Documentation](https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway)
-- [Getting Started](https://www.truefoundry.com/docs/ai-gateway/quick-start)
-- [Authentication](https://www.truefoundry.com/docs/ai-gateway/authentication)
-- [Reference](https://www.truefoundry.com/docs/api-reference)
+**Endpoints:**
+- `POST /chat/completions` — Chat completions (streaming supported)
+- `POST /embeddings` — Text embedding generation
+- `POST /images/generations` — Image generation
+- `POST /audio/speech` — Text-to-speech
+- `POST /audio/transcriptions` — Speech-to-text
+- `GET/POST /files` — File management
+- `POST /batches` — Async batch processing
+- `POST /moderations` — Content moderation
+- `GET /models` — List available models
+- `POST /rerank` — Document reranking
 
 ### TrueFoundry MCP Gateway API
-The TrueFoundry MCP (Model Context Protocol) Gateway provides a centralized registry and proxy for managing MCP servers accessible to AI agents. It handles authentication, access control, schema validation, and tool orchestration across multiple MCP servers, supporting header auth, OAuth2, and token passthrough authentication modes.
 
-**Human URL:** [https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-server-getting-started](https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-server-getting-started)
+Centralized registry and proxy for MCP servers accessible to AI agents.
 
-
-#### Tags:
-
- - MCP, Agent Tools, Tool Registry, AI Agents
-
-#### Properties
-
-- [Documentation](https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-server-getting-started)
-- [Authentication](https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-gateway-auth-security)
+- **Documentation:** [MCP Gateway Docs](https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-server-getting-started)
 
 ### TrueFoundry Platform API
-The TrueFoundry Platform API provides programmatic access to the TrueFoundry MLOps platform for managing applications, deployments, users, and infrastructure resources. It enables automation of service deployments, training jobs, model registry operations, and workflow orchestration across Kubernetes-based compute environments.
 
-**Human URL:** [https://www.truefoundry.com/docs](https://www.truefoundry.com/docs)
+Programmatic access to the MLOps platform for managing deployments, jobs, and infrastructure.
 
-
-#### Tags:
-
- - Platform, MLOps, Deployments, Management
-
-#### Properties
-
-- [Documentation](https://www.truefoundry.com/docs)
-- [Client Libraries](https://github.com/truefoundry/truefoundry-python-sdk)
-
-### TrueFoundry Model Serving API
-TrueFoundry's Model Serving capability enables deployment and management of LLM and embedding models using backends like vLLM and Triton on Kubernetes infrastructure. It provides APIs for deploying models from a community registry of 1000+ configurations, managing inference endpoints, and controlling autoscaling behavior including scale-to-zero.
-
-**Human URL:** [https://www.truefoundry.com/docs/introduction-to-a-service](https://www.truefoundry.com/docs/introduction-to-a-service)
-
-
-#### Tags:
-
- - Model Serving, LLM Inference, Kubernetes, MLOps
-
-#### Properties
-
-- [Documentation](https://www.truefoundry.com/docs/introduction-to-a-service)
+- **Base URL:** `https://app.truefoundry.com/api`
+- **SDK:** [truefoundry-python-sdk](https://github.com/truefoundry/truefoundry-python-sdk)
 
 ### TrueFoundry Model Registry API
-The TrueFoundry Model Registry provides a versioned repository for storing and managing machine learning models backed by cloud storage such as S3, GCS, Azure Blob, or Minio. It supports programmatic model logging via the truefoundry.ml Python client, multi-framework model formats, and automatic versioning with metadata management.
 
-**Human URL:** [https://www.truefoundry.com/docs/model-registry](https://www.truefoundry.com/docs/model-registry)
+Versioned repository for storing and managing ML models on cloud storage.
 
+- **Documentation:** [Model Registry Docs](https://www.truefoundry.com/docs/model-registry)
 
-#### Tags:
+## Artifacts
 
- - Model Registry, MLOps, Versioning, Machine Learning
+| Type | File |
+|---|---|
+| OpenAPI Spec (AI Gateway) | [openapi/truefoundry-ai-gateway-openapi.yml](openapi/truefoundry-ai-gateway-openapi.yml) |
+| Spectral Rules | [rules/truefoundry-rules.yml](rules/truefoundry-rules.yml) |
+| Naftiko Capabilities | [capabilities/llm-operations.yaml](capabilities/llm-operations.yaml) |
+| Shared Capability | [capabilities/shared/ai-gateway.yaml](capabilities/shared/ai-gateway.yaml) |
+| Chat Completion Schema | [json-schema/truefoundry-chat-completion-schema.json](json-schema/truefoundry-chat-completion-schema.json) |
+| Chat Completion Structure | [json-structure/truefoundry-chat-completion-structure.json](json-structure/truefoundry-chat-completion-structure.json) |
+| JSON-LD Context | [json-ld/truefoundry-context.jsonld](json-ld/truefoundry-context.jsonld) |
+| Examples | [examples/](examples/) |
+| Vocabulary | [vocabulary/truefoundry-vocabulary.yml](vocabulary/truefoundry-vocabulary.yml) |
 
-#### Properties
+## Capabilities
 
-- [Documentation](https://www.truefoundry.com/docs/model-registry)
+### LLM Operations (`capabilities/llm-operations.yaml`)
 
-## Common Properties
+Workflow capability for AI/LLM operations via TrueFoundry's AI Gateway. Combines chat completions, embeddings, image generation, content moderation, and document reranking.
 
-- [Website](https://www.truefoundry.com/)
-- [Documentation](https://www.truefoundry.com/docs)
-- [Getting Started](https://www.truefoundry.com/docs/ai-gateway/quick-start)
-- [Authentication](https://www.truefoundry.com/docs/ai-gateway/authentication)
-- [Pricing](https://www.truefoundry.com/pricing)
-- [Blog](https://www.truefoundry.com/blog)
-- [Change Log](https://www.truefoundry.com/docs/changelog)
-- [GitHub Organization](https://github.com/truefoundry)
-- [GitHubRepository](https://github.com/truefoundry/truefoundry-python-sdk)
-- [SDKs](https://github.com/truefoundry/truefoundry-python-sdk)
-- [Sign Up](https://app.truefoundry.com/signup)
+- **REST port:** 8080
+- **MCP port:** 9090
+- **Tools:** 8 tools covering chat, embeddings, images, moderation, reranking, models, batches, and files
+
+## Tags
+
+- AI Platform
+- Enterprise AI
+- Kubernetes
+- LLM Gateway
+- MLOps
+
+## Timestamps
+
+- **Created:** 2026-03-16
+- **Modified:** 2026-05-03
 
 ## Maintainers
 
-**FN:** Kin Lane
-
+**FN:** Kin Lane  
 **Email:** kin@apievangelist.com

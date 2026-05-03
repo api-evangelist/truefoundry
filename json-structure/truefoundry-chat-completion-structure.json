@@ -1,0 +1,50 @@
+{
+  "name": "ChatCompletion",
+  "description": "TrueFoundry AI Gateway chat completion request and response",
+  "request": {
+    "fields": [
+      { "name": "model", "type": "string", "description": "Model identifier", "required": true },
+      { "name": "messages", "type": "array[Message]", "description": "Conversation history", "required": true },
+      { "name": "temperature", "type": "number(0-2)", "description": "Sampling randomness", "required": false },
+      { "name": "max_tokens", "type": "integer", "description": "Max output tokens", "required": false },
+      { "name": "stream", "type": "boolean", "description": "Enable SSE streaming", "required": false },
+      { "name": "tools", "type": "array[Tool]", "description": "Function calling tools", "required": false },
+      { "name": "top_p", "type": "number", "required": false },
+      { "name": "top_k", "type": "integer", "required": false },
+      { "name": "user", "type": "string", "description": "End-user ID for monitoring", "required": false }
+    ]
+  },
+  "response": {
+    "fields": [
+      { "name": "id", "type": "string", "description": "Completion ID", "required": true },
+      { "name": "object", "type": "enum[chat.completion]", "required": true },
+      { "name": "created", "type": "integer", "description": "Unix timestamp", "required": true },
+      { "name": "model", "type": "string", "description": "Model used", "required": true },
+      { "name": "choices", "type": "array[Choice]", "required": true },
+      { "name": "usage", "type": "Usage", "required": true }
+    ]
+  },
+  "nested": {
+    "Message": {
+      "fields": [
+        { "name": "role", "type": "enum[system,user,assistant,tool]", "required": true },
+        { "name": "content", "type": "string|array", "required": true },
+        { "name": "tool_calls", "type": "array", "required": false }
+      ]
+    },
+    "Choice": {
+      "fields": [
+        { "name": "index", "type": "integer", "required": true },
+        { "name": "message", "type": "Message", "required": true },
+        { "name": "finish_reason", "type": "enum[stop,length,tool_calls,content_filter]", "required": true }
+      ]
+    },
+    "Usage": {
+      "fields": [
+        { "name": "prompt_tokens", "type": "integer", "required": true },
+        { "name": "completion_tokens", "type": "integer", "required": true },
+        { "name": "total_tokens", "type": "integer", "required": true }
+      ]
+    }
+  }
+}

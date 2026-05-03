@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://app.truefoundry.com/api/llm/embeddings",
+    "headers": {
+      "Authorization": "Bearer YOUR_TRUEFOUNDRY_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "openai-main/text-embedding-3-small",
+      "input": [
+        "TrueFoundry is a Kubernetes-native AI platform",
+        "Deploy and manage LLMs in production"
+      ],
+      "encoding_format": "float"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "object": "embedding",
+          "index": 0,
+          "embedding": [0.0023, -0.0108, 0.0402, "...1536 dimensions..."]
+        },
+        {
+          "object": "embedding",
+          "index": 1,
+          "embedding": [0.0012, -0.0052, 0.0318, "...1536 dimensions..."]
+        }
+      ],
+      "model": "text-embedding-3-small",
+      "usage": {
+        "prompt_tokens": 18,
+        "total_tokens": 18
+      }
+    }
+  }
+}

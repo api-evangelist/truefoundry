@@ -16,7 +16,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/apis.yml
 created: '2026-03-16'
-modified: '2026-03-18'
+modified: '2026-05-03'
 specificationVersion: '0.19'
 apis:
   - aid: truefoundry:truefoundry-ai-gateway-api
@@ -45,6 +45,18 @@ apis:
         url: https://www.truefoundry.com/docs/ai-gateway/authentication
       - type: Reference
         url: https://www.truefoundry.com/docs/api-reference
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/openapi/truefoundry-ai-gateway-openapi.yml
+      - type: SpectralRules
+        url: https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/rules/truefoundry-rules.yml
+      - type: NaftikoCapabilities
+        url: https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/capabilities/llm-operations.yaml
+      - type: JSONSchema
+        url: https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-schema/truefoundry-chat-completion-schema.json
+      - type: JSONLDContext
+        url: https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-ld/truefoundry-context.jsonld
+      - type: Vocabulary
+        url: https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
   - aid: truefoundry:truefoundry-mcp-gateway-api
     name: TrueFoundry MCP Gateway API
     description: >-

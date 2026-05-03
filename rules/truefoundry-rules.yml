@@ -1,0 +1,95 @@
+extends: spectral:oas
+rules:
+  truefoundry-operation-summary-title-case:
+    description: Operation summaries must use Title Case
+    severity: warn
+    given: "$.paths[*][*].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^([A-Z][a-z]* ?)+$"
+
+  truefoundry-operation-tags-required:
+    description: All operations must have at least one tag
+    severity: error
+    given: "$.paths[*][*]"
+    then:
+      field: tags
+      function: truthy
+
+  truefoundry-bearer-auth-required:
+    description: API must use Bearer authentication
+    severity: error
+    given: "$.components.securitySchemes.*"
+    then:
+      field: type
+      function: enumeration
+      functionOptions:
+        values:
+          - http
+
+  truefoundry-model-param-required:
+    description: LLM operations should require a model parameter
+    severity: warn
+    given: "$.paths[/chat/completions,/embeddings,/rerank][post].requestBody.content.application/json.schema.required"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            type: string
+            enum:
+              - model
+
+  truefoundry-openai-compatible-success:
+    description: POST endpoints should return 200 or 201 for success
+    severity: error
+    given: "$.paths[*][post]"
+    then:
+      field: responses
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          minProperties: 1
+
+  truefoundry-error-response-shape:
+    description: Error responses should include an error object with message field
+    severity: warn
+    given: "$.paths[*][*].responses[4*,5*].content.application/json.schema.properties"
+    then:
+      field: error
+      function: truthy
+
+  truefoundry-usage-in-response:
+    description: Completion responses should include usage statistics
+    severity: hint
+    given: "$.components.schemas.ChatCompletionResponse.properties"
+    then:
+      field: usage
+      function: truthy
+
+  truefoundry-streaming-documented:
+    description: Chat completions should document streaming support
+    severity: hint
+    given: "$.paths[/chat/completions][post].requestBody.content.application/json.schema.properties"
+    then:
+      field: stream
+      function: truthy
+
+  truefoundry-openai-compatibility:
+    description: >-
+      The API follows OpenAI-compatible conventions for model, messages,
+      and response format
+    severity: warn
+    given: "$.paths[/chat/completions][post].requestBody.content.application/json.schema.required"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            type: string
+            enum:
+              - messages

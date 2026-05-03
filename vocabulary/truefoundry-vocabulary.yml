@@ -1,0 +1,132 @@
+aid: truefoundry-vocabulary
+name: TrueFoundry Vocabulary
+description: >-
+  Domain vocabulary for TrueFoundry's enterprise AI and MLOps platform, covering
+  AI gateway concepts, model serving, agent orchestration, MCP, and Kubernetes-native
+  AI infrastructure terminology.
+created: '2026-05-03'
+modified: '2026-05-03'
+tags:
+  - AI Platform
+  - MLOps
+  - LLM
+  - Kubernetes
+
+terms:
+  - term: AI Gateway
+    definition: >-
+      TrueFoundry's unified proxy layer that routes requests to 1000+ language
+      models across 30+ providers through a single OpenAI-compatible endpoint
+      with centralized auth, rate limiting, and observability.
+    tags:
+      - AI Gateway
+      - Core Concepts
+
+  - term: MCP Gateway
+    definition: >-
+      TrueFoundry's centralized registry and proxy for MCP (Model Context Protocol)
+      servers. Provides authentication, access control, schema validation, and
+      tool orchestration across multiple MCP servers.
+    tags:
+      - MCP
+      - AI Gateway
+
+  - term: Control Plane URL
+    definition: >-
+      The base URL for a TrueFoundry deployment. Defaults to app.truefoundry.com
+      for the SaaS offering, or a custom domain for self-hosted/VPC deployments.
+    tags:
+      - Infrastructure
+
+  - term: Provider Account
+    definition: >-
+      A configured connection to an LLM provider (OpenAI, Anthropic, Google,
+      AWS Bedrock, etc.) within TrueFoundry. Each provider account has a
+      display name used as the model prefix.
+    tags:
+      - AI Gateway
+      - Core Concepts
+
+  - term: Model Registry
+    definition: >-
+      TrueFoundry's versioned repository for storing and managing machine
+      learning models backed by cloud storage (S3, GCS, Azure Blob, Minio).
+    tags:
+      - MLOps
+      - Model Management
+
+  - term: Deployment
+    definition: >-
+      A running instance of a service, job, or model on TrueFoundry's
+      Kubernetes-based compute infrastructure. Deployments can autoscale
+      including scale-to-zero.
+    tags:
+      - MLOps
+      - Infrastructure
+
+  - term: Service
+    definition: >-
+      A long-running container deployment on TrueFoundry, typically exposing
+      an HTTP endpoint. Used for model serving, REST APIs, and web applications.
+    tags:
+      - MLOps
+
+  - term: Job
+    definition: >-
+      A batch processing task that runs to completion. Used for training runs,
+      data processing pipelines, and evaluation jobs on TrueFoundry.
+    tags:
+      - MLOps
+
+  - term: Fine-Tuning
+    definition: >-
+      The process of adapting a pre-trained foundation model to a specific
+      task or domain using custom training data. TrueFoundry supports
+      fine-tuning workflows on Kubernetes compute.
+    tags:
+      - Machine Learning
+      - Model Training
+
+  - term: RAG
+    definition: >-
+      Retrieval-Augmented Generation — an AI architecture that combines
+      information retrieval (embeddings + vector search) with LLM generation
+      to produce grounded, factual responses.
+    abbreviation: RAG
+    tags:
+      - AI Patterns
+      - Embeddings
+
+  - term: MCP
+    definition: >-
+      Model Context Protocol — an open protocol for connecting AI models to
+      external tools, data sources, and services. TrueFoundry's MCP Gateway
+      provides centralized management of MCP servers.
+    abbreviation: MCP
+    tags:
+      - MCP
+      - AI Agents
+
+  - term: vLLM
+    definition: >-
+      An open-source high-throughput LLM inference engine used by TrueFoundry
+      for serving large language models efficiently on GPU infrastructure.
+    tags:
+      - Model Serving
+      - Infrastructure
+
+  - term: Workspace
+    definition: >-
+      An isolated organizational unit in TrueFoundry for grouping deployments,
+      models, and resources. Corresponds to a Kubernetes namespace.
+    tags:
+      - Infrastructure
+      - Multi-Tenancy
+
+  - term: Budget Limiting
+    definition: >-
+      TrueFoundry AI Gateway's cost control feature that enforces spending
+      limits for users, teams, and models to prevent cost overruns.
+    tags:
+      - AI Gateway
+      - Cost Management

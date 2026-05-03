@@ -1,0 +1,253 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "TrueFoundry LLM Operations"
+  description: >-
+    Workflow capability for AI/LLM operations via TrueFoundry's AI Gateway.
+    Combines chat completions, embeddings, image generation, content moderation,
+    and document reranking into a unified AI operations workflow. Used by AI
+    engineers, data scientists, and application developers building LLM-powered
+    applications on TrueFoundry's enterprise platform.
+  tags:
+    - TrueFoundry
+    - AI Gateway
+    - LLM
+    - Chat Completions
+    - Embeddings
+    - Image Generation
+    - Content Moderation
+    - Reranking
+    - MLOps
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TRUEFOUNDRY_API_KEY: TRUEFOUNDRY_API_KEY
+
+capability:
+  consumes:
+    - import: tfy-gateway
+      location: ./shared/ai-gateway.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: truefoundry-llm-api
+      description: "Unified REST API for LLM operations via TrueFoundry AI Gateway."
+      resources:
+        - path: /v1/chat/completions
+          name: chat-completions
+          description: "Chat completion for LLM conversations"
+          operations:
+            - method: POST
+              name: create-chat-completion
+              description: "Generate chat completion from any supported model"
+              call: "tfy-gateway.create-chat-completion"
+              with:
+                model: "rest.model"
+                messages: "rest.messages"
+                temperature: "rest.temperature"
+                max_tokens: "rest.max_tokens"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/embeddings
+          name: embeddings
+          description: "Text embedding generation"
+          operations:
+            - method: POST
+              name: create-embeddings
+              description: "Generate vector embeddings"
+              call: "tfy-gateway.create-embeddings"
+              with:
+                model: "rest.model"
+                input: "rest.input"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/images/generations
+          name: image-generations
+          description: "AI image generation"
+          operations:
+            - method: POST
+              name: generate-images
+              description: "Generate images from text prompts"
+              call: "tfy-gateway.generate-images"
+              with:
+                model: "rest.model"
+                prompt: "rest.prompt"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/moderations
+          name: moderations
+          description: "Content moderation"
+          operations:
+            - method: POST
+              name: create-moderation
+              description: "Check content for policy violations"
+              call: "tfy-gateway.create-moderation"
+              with:
+                input: "rest.input"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/rerank
+          name: rerank
+          description: "Document reranking"
+          operations:
+            - method: POST
+              name: rerank-documents
+              description: "Rerank documents by query relevance"
+              call: "tfy-gateway.rerank-documents"
+              with:
+                model: "rest.model"
+                query: "rest.query"
+                documents: "rest.documents"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/models
+          name: models
+          description: "Available model catalog"
+          operations:
+            - method: GET
+              name: list-models
+              description: "List all available models"
+              call: "tfy-gateway.list-models"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/batches
+          name: batches
+          description: "Batch request management"
+          operations:
+            - method: POST
+              name: create-batch
+              description: "Create a batch job"
+              call: "tfy-gateway.create-batch"
+              with:
+                input_file_id: "rest.input_file_id"
+                endpoint: "rest.endpoint"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/files
+          name: files
+          description: "File management"
+          operations:
+            - method: GET
+              name: list-files
+              description: "List uploaded files"
+              call: "tfy-gateway.list-files"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: truefoundry-llm-mcp
+      transport: http
+      description: "MCP server for AI-assisted LLM operations via TrueFoundry."
+      tools:
+        - name: chat-completion
+          description: >-
+            Generate a chat completion using any model available in TrueFoundry
+            AI Gateway (GPT-4o, Claude, Gemini, Mistral, etc.). Supports
+            streaming, tool calling, and all OpenAI-compatible parameters.
+          hints:
+            readOnly: false
+            openWorld: true
+          call: "tfy-gateway.create-chat-completion"
+          with:
+            model: "tools.model"
+            messages: "tools.messages"
+            temperature: "tools.temperature"
+            max_tokens: "tools.max_tokens"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-embeddings
+          description: >-
+            Generate vector embeddings for text. Used for semantic search,
+            RAG pipelines, and similarity comparisons across 1000+ embedding models.
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tfy-gateway.create-embeddings"
+          with:
+            model: "tools.model"
+            input: "tools.input"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: generate-images
+          description: "Generate images from text prompts using AI image models"
+          hints:
+            readOnly: false
+          call: "tfy-gateway.generate-images"
+          with:
+            model: "tools.model"
+            prompt: "tools.prompt"
+            n: "tools.n"
+            size: "tools.size"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: moderate-content
+          description: "Check text content for policy violations"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tfy-gateway.create-moderation"
+          with:
+            input: "tools.input"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: rerank-documents
+          description: >-
+            Rerank a list of documents by their relevance to a query. Used
+            in RAG pipelines to improve retrieval quality.
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "tfy-gateway.rerank-documents"
+          with:
+            model: "tools.model"
+            query: "tools.query"
+            documents: "tools.documents"
+            top_n: "tools.top_n"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-models
+          description: "List all LLM models available in TrueFoundry AI Gateway"
+          hints:
+            readOnly: true
+          call: "tfy-gateway.list-models"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-batch
+          description: "Create a batch job for async processing of multiple LLM requests"
+          hints:
+            readOnly: false
+          call: "tfy-gateway.create-batch"
+          with:
+            input_file_id: "tools.input_file_id"
+            endpoint: "tools.endpoint"
+            completion_window: "tools.completion_window"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-files
+          description: "List files uploaded to TrueFoundry"
+          hints:
+            readOnly: true
+          call: "tfy-gateway.list-files"
+          outputParameters:
+            - type: object
+              mapping: "$."

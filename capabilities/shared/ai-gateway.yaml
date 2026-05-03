@@ -1,0 +1,258 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "TrueFoundry AI Gateway"
+  description: >-
+    TrueFoundry's OpenAI-compatible AI Gateway providing unified access to
+    1000+ language models across 30+ providers. Supports chat completions,
+    embeddings, image generation, audio, files, batches, and moderation.
+  tags:
+    - TrueFoundry
+    - AI Gateway
+    - LLM
+    - OpenAI Compatible
+    - Chat Completions
+    - Embeddings
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TRUEFOUNDRY_API_KEY: TRUEFOUNDRY_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: tfy-gateway
+      baseUri: https://app.truefoundry.com/api/llm
+      description: "TrueFoundry AI Gateway - OpenAI-compatible LLM proxy"
+      authentication:
+        type: bearer
+        token: "{{TRUEFOUNDRY_API_KEY}}"
+      resources:
+        - name: chat
+          path: /chat/completions
+          description: "Chat completions for LLM conversations"
+          operations:
+            - name: create-chat-completion
+              method: POST
+              description: "Generate chat completion using any supported model"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  model: "{{tools.model}}"
+                  messages: "{{tools.messages}}"
+                  temperature: "{{tools.temperature}}"
+                  max_tokens: "{{tools.max_tokens}}"
+                  stream: "{{tools.stream}}"
+
+        - name: embeddings
+          path: /embeddings
+          description: "Text embedding generation"
+          operations:
+            - name: create-embeddings
+              method: POST
+              description: "Generate vector embeddings for text"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  model: "{{tools.model}}"
+                  input: "{{tools.input}}"
+
+        - name: images-generations
+          path: /images/generations
+          description: "AI image generation"
+          operations:
+            - name: generate-images
+              method: POST
+              description: "Generate images from text prompts"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  model: "{{tools.model}}"
+                  prompt: "{{tools.prompt}}"
+                  n: "{{tools.n}}"
+                  size: "{{tools.size}}"
+
+        - name: moderations
+          path: /moderations
+          description: "Content moderation"
+          operations:
+            - name: create-moderation
+              method: POST
+              description: "Check content for policy violations"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  input: "{{tools.input}}"
+                  model: "{{tools.model}}"
+
+        - name: models
+          path: /models
+          description: "Available model listing"
+          operations:
+            - name: list-models
+              method: GET
+              description: "List all available models in the gateway"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: rerank
+          path: /rerank
+          description: "Document reranking for search"
+          operations:
+            - name: rerank-documents
+              method: POST
+              description: "Rerank documents by relevance to a query"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  model: "{{tools.model}}"
+                  query: "{{tools.query}}"
+                  documents: "{{tools.documents}}"
+                  top_n: "{{tools.top_n}}"
+
+        - name: files
+          path: /files
+          description: "File management"
+          operations:
+            - name: list-files
+              method: GET
+              description: "List uploaded files"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: batches
+          path: /batches
+          description: "Batch request processing"
+          operations:
+            - name: create-batch
+              method: POST
+              description: "Create a batch of API requests"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  input_file_id: "{{tools.input_file_id}}"
+                  endpoint: "{{tools.endpoint}}"
+                  completion_window: "{{tools.completion_window}}"
+
+  exposes:
+    - type: rest
+      port: 8102
+      namespace: tfy-gateway-rest
+      resources:
+        - path: /v1/chat/completions
+          name: chat
+          operations:
+            - method: POST
+              name: create-chat-completion
+              description: "Create chat completion"
+              call: "tfy-gateway.create-chat-completion"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/embeddings
+          name: embeddings
+          operations:
+            - method: POST
+              name: create-embeddings
+              description: "Generate embeddings"
+              call: "tfy-gateway.create-embeddings"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/models
+          name: models
+          operations:
+            - method: GET
+              name: list-models
+              description: "List models"
+              call: "tfy-gateway.list-models"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9102
+      namespace: tfy-gateway-mcp
+      transport: http
+      tools:
+        - name: chat-completion
+          description: "Generate a chat completion from any supported LLM"
+          hints:
+            readOnly: false
+          call: "tfy-gateway.create-chat-completion"
+          with:
+            model: "tools.model"
+            messages: "tools.messages"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-embeddings
+          description: "Generate vector embeddings for text"
+          hints:
+            readOnly: true
+          call: "tfy-gateway.create-embeddings"
+          with:
+            model: "tools.model"
+            input: "tools.input"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-models
+          description: "List available models in the TrueFoundry gateway"
+          hints:
+            readOnly: true
+          call: "tfy-gateway.list-models"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: rerank-documents
+          description: "Rerank documents by relevance to a query"
+          hints:
+            readOnly: true
+          call: "tfy-gateway.rerank-documents"
+          with:
+            model: "tools.model"
+            query: "tools.query"
+            documents: "tools.documents"
+          outputParameters:
+            - type: object
+              mapping: "$."

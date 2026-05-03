@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://app.truefoundry.com/schemas/chat-completion-request",
+  "title": "Chat Completion Request",
+  "description": "Request schema for TrueFoundry AI Gateway chat completions (OpenAI-compatible)",
+  "type": "object",
+  "required": ["model", "messages"],
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "Model identifier (e.g., gpt-4o, claude-3-5-sonnet-20241022)",
+      "minLength": 1
+    },
+    "messages": {
+      "type": "array",
+      "description": "Conversation history",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["role", "content"],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": ["system", "user", "assistant", "function", "tool", "developer"]
+          },
+          "content": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "array" }
+            ]
+          },
+          "name": { "type": "string" },
+          "tool_calls": { "type": "array" },
+          "tool_call_id": { "type": "string" }
+        }
+      }
+    },
+    "temperature": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2,
+      "description": "Sampling randomness"
+    },
+    "max_tokens": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "stream": {
+      "type": "boolean",
+      "default": false
+    },
+    "tools": {
+      "type": "array",
+      "description": "Tool definitions for function calling"
+    },
+    "user": {
+      "type": "string",
+      "description": "End-user identifier for monitoring"
+    }
+  },
+  "additionalProperties": true
+}
