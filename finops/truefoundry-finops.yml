@@ -1,169 +1,91 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: TrueFoundry
+providerId: truefoundry
+created: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - AI Gateway
+  - LLMOps
+  - GenAI
+  - FinOps
+  - FOCUS
+description: FOCUS-aligned FinOps for TrueFoundry's AI Gateway and MLOps platform — a tiered monthly subscription
+  ($0 / $499 / $2,999 / custom) with included request allowances per tier and per-request overage on Pro;
+  Enterprise adds VPC, on-prem, and air-gapped deployments with custom commercial terms.
+sources:
+  - https://www.truefoundry.com/pricing
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
   dataSpec: FOCUS
   dataSpecVersion: '1.3'
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
-provider: TrueFoundry
-providerId: truefoundry
-publisherName: TrueFoundry
-serviceCategory: API
-created: '2026-05-04'
-modified: '2026-05-04'
-tags:
-  - AI Platform
-  - Enterprise AI
-  - Kubernetes
-  - LLM Gateway
-  - MLOps
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the TrueFoundry API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+publisherName: TrueFoundry, Inc.
+serviceCategory: AI Gateway / LLMOps
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Tiered Subscription + Overage
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
-    - Usage
     - Purchase
-    - Tax
-    - Credit
-    - Adjustment
-  chargeFrequency: Recurring
+    - Usage
 focusColumns:
-  ServiceName: TrueFoundry
-  ServiceCategory: Developer Tools / API
+  ServiceName: TrueFoundry AI Gateway
+  ServiceCategory: AI Gateway / LLMOps
   ProviderName: TrueFoundry
-  PublisherName: TrueFoundry
-  InvoiceIssuerName: TrueFoundry
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  PublisherName: TrueFoundry, Inc.
+  InvoiceIssuerName: TrueFoundry, Inc.
   BillingCurrency: USD
-  ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
+  - name: subscription_fee
+    description: Monthly tier subscription (Developer free, Pro $499, Pro Plus $2,999, Enterprise custom).
+    unit: month
+    aggregation: sum
+    dimensions:
+      - tier
+  - name: gateway_requests
+    description: Requests routed through the AI Gateway; counts toward each tier's monthly allowance and
+      drives overage on Pro.
     unit: request
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
       - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+      - model
+      - virtual_key
+  - name: seats
+    description: Active platform users (3 Developer, 10 Pro, 25 Pro Plus, unlimited Enterprise).
+    unit: seat
+    aggregation: max
+    dimensions:
+      - tier
+  - name: mcp_tool_calls
+    description: MCP gateway tool calls; included up to 5M/month on Pro Plus.
+    unit: call
     aggregation: sum
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: TrueFoundry AI Gateway API
-    baseURL: https://gateway.truefoundry.ai/api/llm
-    tags:
-      - AI Gateway
-      - Chat Completions
-      - Embeddings
-      - LLM
-    serviceName: TrueFoundry AI Gateway API
-    serviceCategory: API
-  - name: TrueFoundry MCP Gateway API
-    baseURL: https://gateway.truefoundry.ai
-    tags:
-      - Agent Tools
-      - AI Agents
-      - MCP
-      - Tool Registry
-    serviceName: TrueFoundry MCP Gateway API
-    serviceCategory: API
-  - name: TrueFoundry Platform API
-    baseURL: https://app.truefoundry.com/api
-    tags:
-      - Deployments
-      - Management
-      - MLOps
-      - Platform
-    serviceName: TrueFoundry Platform API
-    serviceCategory: API
-  - name: TrueFoundry Model Serving API
-    baseURL: https://app.truefoundry.com
-    tags:
-      - Kubernetes
-      - LLM Inference
-      - MLOps
-      - Model Serving
-    serviceName: TrueFoundry Model Serving API
-    serviceCategory: API
-  - name: TrueFoundry Model Registry API
-    baseURL: https://app.truefoundry.com
-    tags:
-      - Machine Learning
-      - MLOps
-      - Model Registry
-      - Versioning
-    serviceName: TrueFoundry Model Registry API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - mcp_server
+  - name: mcp_servers
+    description: Distinct MCP servers configured under the gateway (up to 50 on Pro Plus).
+    unit: server
+    aggregation: max
+principles:
+  - name: Visibility
+    description: Use the TrueFoundry control center to track gateway request volume, virtual-key spend,
+      and per-model usage in real time.
+  - name: Allocation
+    description: Tag virtual keys by team, environment, and product so gateway requests and overage charges
+      can be charged back; group requests by model and route in dashboards.
+  - name: Optimization
+    description: Lever semantic caching, request routing, and tier selection (Developer for prototyping,
+      Pro for production with overage controls, Enterprise for committed-use VPC/on-prem) to keep cost
+      per useful inference low.
+  - name: Accountability
+    description: Assign virtual-key ownership to engineering teams and configure gateway-side rate limits
+      and budgets per key; finance reviews the monthly subscription and overage line on the TrueFoundry
+      invoice.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

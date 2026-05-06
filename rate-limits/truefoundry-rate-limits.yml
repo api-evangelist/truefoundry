@@ -4,106 +4,70 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: TrueFoundry
 providerId: truefoundry
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
-  - AI Platform
-  - Enterprise AI
-  - Kubernetes
-  - LLM Gateway
-  - MLOps
+  - AI Gateway
+  - LLMOps
+  - GenAI
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the TrueFoundry API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: TrueFoundry's AI Gateway exposes plan-level monthly request quotas (50k Developer, 1M Pro/Pro
+  Plus, 10M+ Enterprise) but does not publish a dedicated per-second / per-minute throttling document
+  on its public site. Per-key gateway rate-limit policies are configurable by tenants for downstream models;
+  the platform-side request budget is enforced as a monthly quota.
+sources:
+  - https://www.truefoundry.com/pricing
+notes: No public per-second or per-minute platform rate-limit numbers are documented. Quota caps are captured
+  in plans/. Tenants can configure their own gateway-side rate limits per virtual key or model.
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - TrueFoundry AI Gateway API
-      - TrueFoundry MCP Gateway API
-      - TrueFoundry Platform API
-      - TrueFoundry Model Serving API
-      - TrueFoundry Model Registry API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
+  - name: Developer monthly request quota
+    scope: account
     metric: requests_per_month
-    limit: 1000
+    limit: 50000
     timeFrame: month
-    applies:
-      - TrueFoundry AI Gateway API
-      - TrueFoundry MCP Gateway API
-      - TrueFoundry Platform API
-      - TrueFoundry Model Serving API
-      - TrueFoundry Model Registry API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - TrueFoundry AI Gateway API
-      - TrueFoundry MCP Gateway API
-      - TrueFoundry Platform API
-      - TrueFoundry Model Serving API
-      - TrueFoundry Model Registry API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
+    notes: Free Developer tier monthly cap.
+  - name: Pro monthly included requests
+    scope: account
     metric: requests_per_month
-    limit: 100000
+    limit: 1000000
     timeFrame: month
-    applies:
-      - TrueFoundry AI Gateway API
-      - TrueFoundry MCP Gateway API
-      - TrueFoundry Platform API
-      - TrueFoundry Model Serving API
-      - TrueFoundry Model Registry API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - TrueFoundry AI Gateway API
-      - TrueFoundry MCP Gateway API
-      - TrueFoundry Platform API
-      - TrueFoundry Model Serving API
-      - TrueFoundry Model Registry API
+    notes: Included with the $499/month Pro subscription; overages billed.
+  - name: Pro Plus monthly included requests
+    scope: account
+    metric: requests_per_month
+    limit: 1000000
+    timeFrame: month
+    notes: Included with the $2,999/month Pro Plus subscription.
+  - name: Enterprise monthly request floor
+    scope: account
+    metric: requests_per_month
+    limit: 10000000
+    timeFrame: month
+    notes: Starting allotment; negotiated upward for enterprise contracts.
+  - name: Pro Plus MCP tool-call quota
+    scope: account
+    metric: calls_per_month
+    limit: 5000000
+    timeFrame: month
+    notes: MCP gateway tool-call quota included with Pro Plus.
+  - name: Tenant-configurable gateway throttle
+    scope: virtual-key
+    metric: varies
+    limit: tenant-defined
+    notes: Customers can configure RPM / TPM limits per virtual key, model, or team in the AI Gateway
+      control center.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Plan Quota Enforcement
+    description: Monthly request quotas are enforced at the account level; overage on Pro is billed per
+      vendor pricing, while Developer and Pro Plus appear capped at their published numbers.
+  - name: Tenant Self-Service Throttling
+    description: Tenants configure their own per-key, per-model, or per-team rate limits in the gateway
+      control plane; these supplement the platform monthly quotas.
+  - name: Standard 429 Retry
+    description: Exceeding gateway-side limits returns HTTP 429; clients should implement exponential
+      backoff with jitter and respect any Retry-After header.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
