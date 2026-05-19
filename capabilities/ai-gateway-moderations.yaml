@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TrueFoundry AI Gateway API — Moderations
+  description: 'TrueFoundry AI Gateway API — Moderations. 1 operations. Lead operation: Create Moderation. Self-contained
+    Naftiko capability covering one Truefoundry business surface.'
+  tags:
+  - Truefoundry
+  - Moderations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TRUEFOUNDRY_API_KEY: TRUEFOUNDRY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ai-gateway-moderations
+    baseUri: https://app.truefoundry.com/api/llm
+    description: TrueFoundry AI Gateway API — Moderations business capability. Self-contained, no shared references.
+    resources:
+    - name: moderations
+      path: /moderations
+      operations:
+      - name: createmoderation
+        method: POST
+        description: Create Moderation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TRUEFOUNDRY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: ai-gateway-moderations-rest
+    port: 8080
+    description: REST adapter for TrueFoundry AI Gateway API — Moderations. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/moderations
+      name: moderations
+      description: REST surface for moderations.
+      operations:
+      - method: POST
+        name: createmoderation
+        description: Create Moderation
+        call: ai-gateway-moderations.createmoderation
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ai-gateway-moderations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TrueFoundry AI Gateway API — Moderations. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: create-moderation
+      description: Create Moderation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ai-gateway-moderations.createmoderation
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

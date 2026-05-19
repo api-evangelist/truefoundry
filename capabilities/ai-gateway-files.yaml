@@ -1,0 +1,189 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TrueFoundry AI Gateway API — Files
+  description: 'TrueFoundry AI Gateway API — Files. 4 operations. Lead operation: List Files. Self-contained Naftiko capability
+    covering one Truefoundry business surface.'
+  tags:
+  - Truefoundry
+  - Files
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TRUEFOUNDRY_API_KEY: TRUEFOUNDRY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ai-gateway-files
+    baseUri: https://app.truefoundry.com/api/llm
+    description: TrueFoundry AI Gateway API — Files business capability. Self-contained, no shared references.
+    resources:
+    - name: files
+      path: /files
+      operations:
+      - name: listfiles
+        method: GET
+        description: List Files
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: purpose
+          in: query
+          type: string
+          description: Filter by file purpose
+      - name: uploadfile
+        method: POST
+        description: Upload File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: files-file_id
+      path: /files/{file_id}
+      operations:
+      - name: getfile
+        method: GET
+        description: Get File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: file_id
+          in: path
+          type: string
+          required: true
+      - name: deletefile
+        method: DELETE
+        description: Delete File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: file_id
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.TRUEFOUNDRY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: ai-gateway-files-rest
+    port: 8080
+    description: REST adapter for TrueFoundry AI Gateway API — Files. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/files
+      name: files
+      description: REST surface for files.
+      operations:
+      - method: GET
+        name: listfiles
+        description: List Files
+        call: ai-gateway-files.listfiles
+        with:
+          purpose: rest.purpose
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: uploadfile
+        description: Upload File
+        call: ai-gateway-files.uploadfile
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/{file-id}
+      name: files-file-id
+      description: REST surface for files-file_id.
+      operations:
+      - method: GET
+        name: getfile
+        description: Get File
+        call: ai-gateway-files.getfile
+        with:
+          file_id: rest.file_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletefile
+        description: Delete File
+        call: ai-gateway-files.deletefile
+        with:
+          file_id: rest.file_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ai-gateway-files-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TrueFoundry AI Gateway API — Files. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-files
+      description: List Files
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ai-gateway-files.listfiles
+      with:
+        purpose: tools.purpose
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upload-file
+      description: Upload File
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ai-gateway-files.uploadfile
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-file
+      description: Get File
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ai-gateway-files.getfile
+      with:
+        file_id: tools.file_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-file
+      description: Delete File
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: ai-gateway-files.deletefile
+      with:
+        file_id: tools.file_id
+      outputParameters:
+      - type: object
+        mapping: $.
