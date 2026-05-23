@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletionResponse",
+  "title": "ChatCompletionResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string",
+      "enum": [
+        "chat.completion"
+      ]
+    },
+    "created": {
+      "type": "integer",
+      "format": "unix-timestamp"
+    },
+    "model": {
+      "type": "string"
+    },
+    "choices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "tool_calls": {
+                "type": "array"
+              }
+            }
+          },
+          "finish_reason": {
+            "type": "string",
+            "enum": [
+              "stop",
+              "length",
+              "tool_calls",
+              "content_filter"
+            ]
+          },
+          "logprobs": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "prompt_tokens": {
+          "type": "integer"
+        },
+        "completion_tokens": {
+          "type": "integer"
+        },
+        "total_tokens": {
+          "type": "integer"
+        },
+        "prompt_tokens_details": {
+          "type": "object"
+        },
+        "completion_tokens_details": {
+          "type": "object"
+        }
+      }
+    },
+    "service_tier": {
+      "type": "string"
+    },
+    "system_fingerprint": {
+      "type": "string"
+    }
+  }
+}

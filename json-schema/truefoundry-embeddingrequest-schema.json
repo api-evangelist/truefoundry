@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EmbeddingRequest",
+  "title": "EmbeddingRequest",
+  "type": "object",
+  "required": [
+    "model",
+    "input"
+  ],
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "Embedding model identifier"
+    },
+    "input": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "Text to embed"
+    },
+    "encoding_format": {
+      "type": "string",
+      "enum": [
+        "float",
+        "base64"
+      ],
+      "default": "float"
+    },
+    "dimensions": {
+      "type": "integer",
+      "description": "Embedding vector dimensions (model-specific)"
+    },
+    "user": {
+      "type": "string"
+    }
+  }
+}

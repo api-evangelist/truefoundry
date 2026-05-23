@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FileObject",
+  "title": "FileObject",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string",
+      "enum": [
+        "file"
+      ]
+    },
+    "bytes": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "integer"
+    },
+    "filename": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    }
+  }
+}

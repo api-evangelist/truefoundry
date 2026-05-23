@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BatchObject",
+  "title": "BatchObject",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string",
+      "enum": [
+        "batch"
+      ]
+    },
+    "endpoint": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "validating",
+        "failed",
+        "in_progress",
+        "finalizing",
+        "completed",
+        "expired",
+        "cancelling",
+        "cancelled"
+      ]
+    },
+    "input_file_id": {
+      "type": "string"
+    },
+    "completion_window": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "integer"
+    },
+    "completed_at": {
+      "type": "integer"
+    },
+    "request_counts": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer"
+        },
+        "completed": {
+          "type": "integer"
+        },
+        "failed": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

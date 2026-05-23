@@ -1,0 +1,201 @@
+{
+  "provider": "TrueFoundry",
+  "providerId": "truefoundry",
+  "kind": "json-structure",
+  "description": "Structural overview of the TrueFoundry API surface; extracted from openapi/.",
+  "schemaCount": 9,
+  "operationCount": 14,
+  "schemas": [
+    {
+      "name": "ChatCompletionRequest",
+      "type": "object",
+      "propertyCount": 15,
+      "required": [
+        "model",
+        "messages"
+      ]
+    },
+    {
+      "name": "ChatCompletionResponse",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "EmbeddingRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "model",
+        "input"
+      ]
+    },
+    {
+      "name": "EmbeddingResponse",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "ImageGenerationRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "prompt",
+        "model"
+      ]
+    },
+    {
+      "name": "ImageGenerationResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "FileObject",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "BatchObject",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "ModelObject",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/chat/completions",
+      "operationId": "createChatCompletion",
+      "summary": "Create Chat Completion",
+      "tags": [
+        "Chat"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/embeddings",
+      "operationId": "createEmbeddings",
+      "summary": "Create Embeddings",
+      "tags": [
+        "Embeddings"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/images/generations",
+      "operationId": "generateImages",
+      "summary": "Generate Images",
+      "tags": [
+        "Images"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/audio/speech",
+      "operationId": "createSpeech",
+      "summary": "Create Speech",
+      "tags": [
+        "Audio"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/audio/transcriptions",
+      "operationId": "createTranscription",
+      "summary": "Create Transcription",
+      "tags": [
+        "Audio"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/files",
+      "operationId": "listFiles",
+      "summary": "List Files",
+      "tags": [
+        "Files"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "operationId": "uploadFile",
+      "summary": "Upload File",
+      "tags": [
+        "Files"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/files/{file_id}",
+      "operationId": "getFile",
+      "summary": "Get File",
+      "tags": [
+        "Files"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/files/{file_id}",
+      "operationId": "deleteFile",
+      "summary": "Delete File",
+      "tags": [
+        "Files"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/batches",
+      "operationId": "createBatch",
+      "summary": "Create Batch",
+      "tags": [
+        "Batches"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/batches/{batch_id}",
+      "operationId": "getBatch",
+      "summary": "Get Batch",
+      "tags": [
+        "Batches"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/moderations",
+      "operationId": "createModeration",
+      "summary": "Create Moderation",
+      "tags": [
+        "Moderations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/models",
+      "operationId": "listModels",
+      "summary": "List Models",
+      "tags": [
+        "Models"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/rerank",
+      "operationId": "rerankDocuments",
+      "summary": "Rerank Documents",
+      "tags": [
+        "Rerank"
+      ]
+    }
+  ]
+}
