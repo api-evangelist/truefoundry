@@ -1,0 +1,350 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrueFoundry AI Gateway API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Chat Completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.truefoundry.com/api/llm/chat/completions",
+            "headers": [
+              {
+                "name": "x-tfy-metadata",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate chat-based completions using the specified model. Supports streaming, tool calling, and all OpenAI-compatible parameters. Routes to 1000+ LLMs across 30+ providers based on the model identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Embeddings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Embeddings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.truefoundry.com/api/llm/embeddings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate vector embeddings for input text. Used for semantic search, retrieval-augmented generation (RAG), and similarity comparisons."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.truefoundry.com/api/llm/images/generations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate images from text prompts."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Audio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Speech",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.truefoundry.com/api/llm/audio/speech",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate audio speech from text input (text-to-speech)."
+        },
+        {
+          "info": {
+            "name": "Create Transcription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.truefoundry.com/api/llm/audio/transcriptions",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "model",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "language",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "prompt",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "response_format",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Transcribe audio to text (speech-to-text)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.truefoundry.com/api/llm/files",
+            "params": [
+              {
+                "name": "purpose",
+                "value": "",
+                "type": "query",
+                "description": "Filter by file purpose"
+              }
+            ]
+          },
+          "docs": "Returns a list of uploaded files."
+        },
+        {
+          "info": {
+            "name": "Upload File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.truefoundry.com/api/llm/files",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "purpose",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload a file for use with the API."
+        },
+        {
+          "info": {
+            "name": "Get File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.truefoundry.com/api/llm/files/:file_id",
+            "params": [
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns metadata for a specific file."
+        },
+        {
+          "info": {
+            "name": "Delete File",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.truefoundry.com/api/llm/files/:file_id",
+            "params": [
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a file."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Batches",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.truefoundry.com/api/llm/batches",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a batch of API requests for async processing."
+        },
+        {
+          "info": {
+            "name": "Get Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.truefoundry.com/api/llm/batches/:batch_id",
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the status of a batch."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Moderations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Moderation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.truefoundry.com/api/llm/moderations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks whether text violates content policy."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.truefoundry.com/api/llm/models"
+          },
+          "docs": "Returns a list of available models accessible through the gateway."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Rerank",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Rerank Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.truefoundry.com/api/llm/rerank",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rerank a list of documents by relevance to a query."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
