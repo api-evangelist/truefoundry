@@ -147,14 +147,14 @@ common:
     url: https://github.com/truefoundry/truefoundry-python-sdk
   - type: SDKs
     url: https://github.com/truefoundry/truefoundry-python-sdk
-  - type: SignUp
+  - type: Signup
     url: https://app.truefoundry.com/signup
   - name: MCP Server
     url: https://github.com/truefoundry/mcp-servers
     type: MCPServer
   - name: Agent Skills
     url: https://github.com/truefoundry/skills
-    type: AgentSkill
+    type: AgentSkills
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

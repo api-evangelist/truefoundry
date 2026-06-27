@@ -3,19 +3,12 @@
   "feeds": [
     {
       "source": "https://www.truefoundry.com/blog",
-      "feed_url": "https://www.truefoundry.com/blog",
-      "title": "",
-      "saved": 0,
-      "method": "none"
-    },
-    {
-      "source": "https://www.truefoundry.com/pricing",
-      "feed_url": "https://www.truefoundry.com/pricing",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "feed_url": "",
+      "saved": 9,
+      "method": "agent-scrape"
     }
   ],
-  "post_count": 7,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 31,
+  "fetched": "2026-06-27T13:17:43Z",
+  "agent_pulled": "2026-06-27"
 }
