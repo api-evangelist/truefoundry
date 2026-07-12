@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://www.truefoundry.com/security
+url: https://www.truefoundry.com/security
+certifications:
+- HIPAA
+- GDPR
+evidence:
+- source: https://www.truefoundry.com/security
+  keywords:
+  - hipaa
+  - trust center
+  - gdpr

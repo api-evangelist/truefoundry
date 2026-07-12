@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/truefoundry-ai-gateway-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: TrueFoundry API key (JWT format)
+  sources:
+  - openapi/truefoundry-ai-gateway-openapi.yml

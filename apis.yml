@@ -125,6 +125,12 @@ apis:
       - type: Documentation
         url: https://www.truefoundry.com/docs/model-registry
 common:
+  - type: TrustCenter
+    url: security/truefoundry-trust-center.yml
+  - type: DomainSecurity
+    url: security/truefoundry-domain-security.yml
+  - type: Authentication
+    url: authentication/truefoundry-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/truefoundry
   - type: Website
