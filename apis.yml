@@ -125,6 +125,8 @@ apis:
       - type: Documentation
         url: https://www.truefoundry.com/docs/model-registry
 common:
+  - type: AgenticAccess
+    url: agentic-access/truefoundry-agentic-access.yml
   - type: TrustCenter
     url: security/truefoundry-trust-center.yml
   - type: DomainSecurity
