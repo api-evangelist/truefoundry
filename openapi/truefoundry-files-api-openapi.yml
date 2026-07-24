@@ -1,0 +1,213 @@
+openapi: 3.0.3
+info:
+  title: TrueFoundry AI Gateway Audio Files API
+  description: The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.
+  version: 1.0.0
+  contact:
+    name: TrueFoundry Support
+    url: https://www.truefoundry.com/
+    email: support@truefoundry.com
+  termsOfService: https://www.truefoundry.com/privacy-policy
+servers:
+- url: https://app.truefoundry.com/api/llm
+  description: TrueFoundry AI Gateway (default control plane)
+- url: https://{control_plane_url}/api/llm
+  description: Self-hosted TrueFoundry control plane
+  variables:
+    control_plane_url:
+      default: app.truefoundry.com
+      description: Your TrueFoundry control plane URL
+security:
+- BearerAuth: []
+tags:
+- name: Files
+  description: File upload and management
+paths:
+  /files:
+    get:
+      summary: List Files
+      description: Returns a list of uploaded files.
+      operationId: listFiles
+      tags:
+      - Files
+      parameters:
+      - name: purpose
+        in: query
+        description: Filter by file purpose
+        schema:
+          type: string
+          enum:
+          - assistants
+          - batch
+          - fine-tune
+      responses:
+        '200':
+          description: List of files
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    enum:
+                    - list
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FileObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      summary: Upload File
+      description: Upload a file for use with the API.
+      operationId: uploadFile
+      tags:
+      - Files
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              - purpose
+              properties:
+                file:
+                  type: string
+                  format: binary
+                purpose:
+                  type: string
+                  enum:
+                  - assistants
+                  - batch
+                  - fine-tune
+      responses:
+        '200':
+          description: Uploaded file metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileObject'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /files/{file_id}:
+    get:
+      summary: Get File
+      description: Returns metadata for a specific file.
+      operationId: getFile
+      tags:
+      - Files
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: File metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileObject'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Delete File
+      description: Deletes a file.
+      operationId: deleteFile
+      tags:
+      - Files
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deletion confirmation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  object:
+                    type: string
+                  deleted:
+                    type: boolean
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+                  code:
+                    type: string
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+    Unauthorized:
+      description: Unauthorized - invalid or missing API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+  schemas:
+    FileObject:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          enum:
+          - file
+        bytes:
+          type: integer
+        created_at:
+          type: integer
+        filename:
+          type: string
+        purpose:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: TrueFoundry API key (JWT format)

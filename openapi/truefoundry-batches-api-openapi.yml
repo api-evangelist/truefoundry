@@ -1,0 +1,163 @@
+openapi: 3.0.3
+info:
+  title: TrueFoundry AI Gateway Audio Batches API
+  description: The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.
+  version: 1.0.0
+  contact:
+    name: TrueFoundry Support
+    url: https://www.truefoundry.com/
+    email: support@truefoundry.com
+  termsOfService: https://www.truefoundry.com/privacy-policy
+servers:
+- url: https://app.truefoundry.com/api/llm
+  description: TrueFoundry AI Gateway (default control plane)
+- url: https://{control_plane_url}/api/llm
+  description: Self-hosted TrueFoundry control plane
+  variables:
+    control_plane_url:
+      default: app.truefoundry.com
+      description: Your TrueFoundry control plane URL
+security:
+- BearerAuth: []
+tags:
+- name: Batches
+  description: Batch request processing
+paths:
+  /batches:
+    post:
+      summary: Create Batch
+      description: Create a batch of API requests for async processing.
+      operationId: createBatch
+      tags:
+      - Batches
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input_file_id
+              - endpoint
+              - completion_window
+              properties:
+                input_file_id:
+                  type: string
+                  description: File ID of JSONL input file
+                endpoint:
+                  type: string
+                  enum:
+                  - /chat/completions
+                  - /embeddings
+                completion_window:
+                  type: string
+                  enum:
+                  - 24h
+                metadata:
+                  type: object
+      responses:
+        '200':
+          description: Batch object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchObject'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /batches/{batch_id}:
+    get:
+      summary: Get Batch
+      description: Retrieve the status of a batch.
+      operationId: getBatch
+      tags:
+      - Batches
+      parameters:
+      - name: batch_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Batch status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchObject'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+                  code:
+                    type: string
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+  schemas:
+    BatchObject:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          enum:
+          - batch
+        endpoint:
+          type: string
+        status:
+          type: string
+          enum:
+          - validating
+          - failed
+          - in_progress
+          - finalizing
+          - completed
+          - expired
+          - cancelling
+          - cancelled
+        input_file_id:
+          type: string
+        completion_window:
+          type: string
+        created_at:
+          type: integer
+        completed_at:
+          type: integer
+        request_counts:
+          type: object
+          properties:
+            total:
+              type: integer
+            completed:
+              type: integer
+            failed:
+              type: integer
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: TrueFoundry API key (JWT format)

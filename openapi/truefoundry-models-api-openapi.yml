@@ -1,0 +1,87 @@
+openapi: 3.0.3
+info:
+  title: TrueFoundry AI Gateway Audio Models API
+  description: The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.
+  version: 1.0.0
+  contact:
+    name: TrueFoundry Support
+    url: https://www.truefoundry.com/
+    email: support@truefoundry.com
+  termsOfService: https://www.truefoundry.com/privacy-policy
+servers:
+- url: https://app.truefoundry.com/api/llm
+  description: TrueFoundry AI Gateway (default control plane)
+- url: https://{control_plane_url}/api/llm
+  description: Self-hosted TrueFoundry control plane
+  variables:
+    control_plane_url:
+      default: app.truefoundry.com
+      description: Your TrueFoundry control plane URL
+security:
+- BearerAuth: []
+tags:
+- name: Models
+  description: Available model listing
+paths:
+  /models:
+    get:
+      summary: List Models
+      description: Returns a list of available models accessible through the gateway.
+      operationId: listModels
+      tags:
+      - Models
+      responses:
+        '200':
+          description: Model list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    enum:
+                    - list
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ModelObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized - invalid or missing API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+  schemas:
+    ModelObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Model identifier
+        object:
+          type: string
+          enum:
+          - model
+        created:
+          type: integer
+        owned_by:
+          type: string
+          description: Model provider (e.g., openai, anthropic, google)
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: TrueFoundry API key (JWT format)

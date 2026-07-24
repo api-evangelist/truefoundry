@@ -1,0 +1,79 @@
+openapi: 3.0.3
+info:
+  title: TrueFoundry AI Gateway Audio Moderations API
+  description: The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.
+  version: 1.0.0
+  contact:
+    name: TrueFoundry Support
+    url: https://www.truefoundry.com/
+    email: support@truefoundry.com
+  termsOfService: https://www.truefoundry.com/privacy-policy
+servers:
+- url: https://app.truefoundry.com/api/llm
+  description: TrueFoundry AI Gateway (default control plane)
+- url: https://{control_plane_url}/api/llm
+  description: Self-hosted TrueFoundry control plane
+  variables:
+    control_plane_url:
+      default: app.truefoundry.com
+      description: Your TrueFoundry control plane URL
+security:
+- BearerAuth: []
+tags:
+- name: Moderations
+  description: Content moderation
+paths:
+  /moderations:
+    post:
+      summary: Create Moderation
+      description: Checks whether text violates content policy.
+      operationId: createModeration
+      tags:
+      - Moderations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                input:
+                  oneOf:
+                  - type: string
+                  - type: array
+                    items:
+                      type: string
+                model:
+                  type: string
+                  description: Moderation model to use
+      responses:
+        '200':
+          description: Moderation result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  model:
+                    type: string
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        flagged:
+                          type: boolean
+                        categories:
+                          type: object
+                        category_scores:
+                          type: object
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: TrueFoundry API key (JWT format)

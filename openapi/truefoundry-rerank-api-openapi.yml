@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: TrueFoundry AI Gateway Audio Rerank API
+  description: The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.
+  version: 1.0.0
+  contact:
+    name: TrueFoundry Support
+    url: https://www.truefoundry.com/
+    email: support@truefoundry.com
+  termsOfService: https://www.truefoundry.com/privacy-policy
+servers:
+- url: https://app.truefoundry.com/api/llm
+  description: TrueFoundry AI Gateway (default control plane)
+- url: https://{control_plane_url}/api/llm
+  description: Self-hosted TrueFoundry control plane
+  variables:
+    control_plane_url:
+      default: app.truefoundry.com
+      description: Your TrueFoundry control plane URL
+security:
+- BearerAuth: []
+tags:
+- name: Rerank
+  description: Reranking for search relevance
+paths:
+  /rerank:
+    post:
+      summary: Rerank Documents
+      description: Rerank a list of documents by relevance to a query.
+      operationId: rerankDocuments
+      tags:
+      - Rerank
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - model
+              - query
+              - documents
+              properties:
+                model:
+                  type: string
+                query:
+                  type: string
+                  description: Query text for relevance scoring
+                documents:
+                  type: array
+                  items:
+                    type: string
+                  description: Documents to rerank
+                top_n:
+                  type: integer
+                  description: Number of top results to return
+      responses:
+        '200':
+          description: Reranked results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  model:
+                    type: string
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: integer
+                        relevance_score:
+                          type: number
+                        document:
+                          type: string
+                  usage:
+                    type: object
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: TrueFoundry API key (JWT format)

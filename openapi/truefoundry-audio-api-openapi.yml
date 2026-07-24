@@ -1,0 +1,160 @@
+openapi: 3.0.3
+info:
+  title: TrueFoundry AI Gateway Audio API
+  description: The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.
+  version: 1.0.0
+  contact:
+    name: TrueFoundry Support
+    url: https://www.truefoundry.com/
+    email: support@truefoundry.com
+  termsOfService: https://www.truefoundry.com/privacy-policy
+servers:
+- url: https://app.truefoundry.com/api/llm
+  description: TrueFoundry AI Gateway (default control plane)
+- url: https://{control_plane_url}/api/llm
+  description: Self-hosted TrueFoundry control plane
+  variables:
+    control_plane_url:
+      default: app.truefoundry.com
+      description: Your TrueFoundry control plane URL
+security:
+- BearerAuth: []
+tags:
+- name: Audio
+  description: Speech and audio processing
+paths:
+  /audio/speech:
+    post:
+      summary: Create Speech
+      description: Generate audio speech from text input (text-to-speech).
+      operationId: createSpeech
+      tags:
+      - Audio
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - model
+              - input
+              - voice
+              properties:
+                model:
+                  type: string
+                  description: TTS model identifier
+                input:
+                  type: string
+                  description: Text to synthesize
+                voice:
+                  type: string
+                  description: Voice selection
+                response_format:
+                  type: string
+                  enum:
+                  - mp3
+                  - opus
+                  - aac
+                  - flac
+                speed:
+                  type: number
+                  minimum: 0.25
+                  maximum: 4.0
+      responses:
+        '200':
+          description: Audio binary data
+          content:
+            audio/mpeg:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /audio/transcriptions:
+    post:
+      summary: Create Transcription
+      description: Transcribe audio to text (speech-to-text).
+      operationId: createTranscription
+      tags:
+      - Audio
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              - model
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Audio file to transcribe
+                model:
+                  type: string
+                language:
+                  type: string
+                  description: ISO 639-1 language code
+                prompt:
+                  type: string
+                response_format:
+                  type: string
+                  enum:
+                  - json
+                  - text
+                  - srt
+                  - verbose_json
+                  - vtt
+      responses:
+        '200':
+          description: Transcription result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized - invalid or missing API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+                  code:
+                    type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: TrueFoundry API key (JWT format)
