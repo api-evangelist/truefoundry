@@ -1,0 +1,39 @@
+{
+  "name": "TrueFoundry Docs",
+  "description": "TrueFoundry documentation \u2014 enterprise-grade AI Gateway combining LLM, MCP, and Agent Gateways to connect, monitor, and govern agentic AI applications across providers from a unified control plane.",
+  "url": "https://www.truefoundry.com/",
+  "version": "1.0.0",
+  "protocolVersion": "0.3",
+  "preferredTransport": "HTTP+JSON",
+  "supportedInterfaces": [
+    {
+      "url": "https://www.truefoundry.com/",
+      "protocolBinding": "HTTP+JSON",
+      "protocolVersion": "0.3"
+    }
+  ],
+  "provider": {
+    "url": "https://www.truefoundry.com/",
+    "organization": "TrueFoundry Docs"
+  },
+  "documentationUrl": "https://www.truefoundry.com/",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "truefoundry",
+      "name": "Truefoundry",
+      "description": "Use when deploying ML models, services, and LLM applications; building and managing AI agents; integrating with LLM providers through a unified gateway; setting up workflows and batch jobs; or managing infrastructure for AI workloads. Reach for this skill when users need to deploy code, configure resources, manage models, integrate LLMs, or build production AI systems.",
+      "tags": [],
+      "url": "https://www.truefoundry.com/.well-known/agent-skills/truefoundry/skill.md"
+    }
+  ]
+}

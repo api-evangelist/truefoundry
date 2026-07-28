@@ -125,6 +125,10 @@ apis:
       - type: Documentation
         url: https://www.truefoundry.com/docs/model-registry
 common:
+  - type: AgentCard
+    url: a2a/truefoundry-a2a.yml
+    name: A2A Agent Card
+    description: Agent Card served at /.well-known/agent-card.json (near-conformant against A2A 1.0.0).
   - type: AgenticAccess
     url: agentic-access/truefoundry-agentic-access.yml
   - type: TrustCenter
