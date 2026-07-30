@@ -17,113 +17,348 @@ created: '2026-03-16'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: truefoundry:truefoundry-ai-gateway-api
-    name: TrueFoundry AI Gateway API
-    description: >-
-      The TrueFoundry AI Gateway API is a proxy layer that sits between applications and LLM providers, enabling unified
-      access to 1000+ language models through a single OpenAI-compatible endpoint. It supports chat completions,
-      embeddings, image generation, audio processing, batch operations, file management, content moderation, and model
-      management with centralized authentication, rate limiting, budget controls, and observability.
-    humanURL: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
-    baseURL: https://gateway.truefoundry.ai/api/llm
-    tags:
-      - AI Gateway
-      - Chat Completions
-      - Embeddings
-      - LLM
-    properties:
-      - type: Documentation
-        url: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
-      - type: GettingStarted
-        url: https://www.truefoundry.com/docs/ai-gateway/quick-start
-      - type: Authentication
-        url: https://www.truefoundry.com/docs/ai-gateway/authentication
-      - type: Reference
-        url: https://www.truefoundry.com/docs/api-reference
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/openapi/truefoundry-ai-gateway-openapi.yml
-      - type: SpectralRules
-        url: https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/rules/truefoundry-rules.yml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-schema/truefoundry-chat-completion-schema.json
-      - type: JSONLDContext
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-ld/truefoundry-context.jsonld
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
-  - aid: truefoundry:truefoundry-mcp-gateway-api
-    name: TrueFoundry MCP Gateway API
-    description: >-
-      The TrueFoundry MCP (Model Context Protocol) Gateway provides a centralized registry and proxy for managing MCP
-      servers accessible to AI agents. It handles authentication, access control, schema validation, and tool
-      orchestration across multiple MCP servers, supporting header auth, OAuth2, and token passthrough authentication
-      modes.
-    humanURL: https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-server-getting-started
-    baseURL: https://gateway.truefoundry.ai
-    tags:
-      - Agent Tools
-      - AI Agents
-      - MCP
-      - Tool Registry
-    properties:
-      - type: Documentation
-        url: https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-server-getting-started
-      - type: Authentication
-        url: https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-gateway-auth-security
-  - aid: truefoundry:truefoundry-platform-api
-    name: TrueFoundry Platform API
-    description: >-
-      The TrueFoundry Platform API provides programmatic access to the TrueFoundry MLOps platform for managing
-      applications, deployments, users, and infrastructure resources. It enables automation of service deployments,
-      training jobs, model registry operations, and workflow orchestration across Kubernetes-based compute environments.
-    humanURL: https://www.truefoundry.com/docs
-    baseURL: https://app.truefoundry.com/api
-    tags:
-      - Deployments
-      - Management
-      - MLOps
-      - Platform
-    properties:
-      - type: Documentation
-        url: https://www.truefoundry.com/docs
-      - type: Client Libraries
-        url: https://github.com/truefoundry/truefoundry-python-sdk
-  - aid: truefoundry:truefoundry-model-serving-api
-    name: TrueFoundry Model Serving API
-    description: >-
-      TrueFoundry's Model Serving capability enables deployment and management of LLM and embedding models using
-      backends like vLLM and Triton on Kubernetes infrastructure. It provides APIs for deploying models from a community
-      registry of 1000+ configurations, managing inference endpoints, and controlling autoscaling behavior including
-      scale-to-zero.
-    humanURL: https://www.truefoundry.com/docs/introduction-to-a-service
-    baseURL: https://app.truefoundry.com
-    tags:
-      - Kubernetes
-      - LLM Inference
-      - MLOps
-      - Model Serving
-    properties:
-      - type: Documentation
-        url: https://www.truefoundry.com/docs/introduction-to-a-service
-  - aid: truefoundry:truefoundry-model-registry-api
-    name: TrueFoundry Model Registry API
-    description: >-
-      The TrueFoundry Model Registry provides a versioned repository for storing and managing machine learning models
-      backed by cloud storage such as S3, GCS, Azure Blob, or Minio. It supports programmatic model logging via the
-      truefoundry.ml Python client, multi-framework model formats, and automatic versioning with metadata management.
-    humanURL: https://www.truefoundry.com/docs/model-registry
-    baseURL: https://app.truefoundry.com
-    tags:
-      - Machine Learning
-      - MLOps
-      - Model Registry
-      - Versioning
-    properties:
-      - type: Documentation
-        url: https://www.truefoundry.com/docs/model-registry
+- aid: truefoundry:truefoundry-mcp-gateway-api
+  name: TrueFoundry MCP Gateway API
+  description: >-
+    The TrueFoundry MCP (Model Context Protocol) Gateway provides a centralized registry and proxy for
+    managing MCP servers accessible to AI agents. It handles authentication, access control, schema validation,
+    and tool orchestration across multiple MCP servers, supporting header auth, OAuth2, and token passthrough
+    authentication modes.
+  humanURL: https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-server-getting-started
+  baseURL: https://gateway.truefoundry.ai
+  tags:
+  - Agent Tools
+  - AI Agents
+  - MCP
+  - Tool Registry
+  properties:
+  - type: Documentation
+    url: https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-server-getting-started
+  - type: Authentication
+    url: https://www.truefoundry.com/docs/ai-gateway/mcp/mcp-gateway-auth-security
+- aid: truefoundry:truefoundry-platform-api
+  name: TrueFoundry Platform API
+  description: >-
+    The TrueFoundry Platform API provides programmatic access to the TrueFoundry MLOps platform for managing
+    applications, deployments, users, and infrastructure resources. It enables automation of service deployments,
+    training jobs, model registry operations, and workflow orchestration across Kubernetes-based compute
+    environments.
+  humanURL: https://www.truefoundry.com/docs
+  baseURL: https://app.truefoundry.com/api
+  tags:
+  - Deployments
+  - Management
+  - MLOps
+  - Platform
+  properties:
+  - type: Documentation
+    url: https://www.truefoundry.com/docs
+  - type: Client Libraries
+    url: https://github.com/truefoundry/truefoundry-python-sdk
+- aid: truefoundry:truefoundry-model-serving-api
+  name: TrueFoundry Model Serving API
+  description: >-
+    TrueFoundry's Model Serving capability enables deployment and management of LLM and embedding models
+    using backends like vLLM and Triton on Kubernetes infrastructure. It provides APIs for deploying models
+    from a community registry of 1000+ configurations, managing inference endpoints, and controlling autoscaling
+    behavior including scale-to-zero.
+  humanURL: https://www.truefoundry.com/docs/introduction-to-a-service
+  baseURL: https://app.truefoundry.com
+  tags:
+  - Kubernetes
+  - LLM Inference
+  - MLOps
+  - Model Serving
+  properties:
+  - type: Documentation
+    url: https://www.truefoundry.com/docs/introduction-to-a-service
+- aid: truefoundry:truefoundry-model-registry-api
+  name: TrueFoundry Model Registry API
+  description: >-
+    The TrueFoundry Model Registry provides a versioned repository for storing and managing machine learning
+    models backed by cloud storage such as S3, GCS, Azure Blob, or Minio. It supports programmatic model
+    logging via the truefoundry.ml Python client, multi-framework model formats, and automatic versioning
+    with metadata management.
+  humanURL: https://www.truefoundry.com/docs/model-registry
+  baseURL: https://app.truefoundry.com
+  tags:
+  - Machine Learning
+  - MLOps
+  - Model Registry
+  - Versioning
+  properties:
+  - type: Documentation
+    url: https://www.truefoundry.com/docs/model-registry
+- aid: truefoundry:truefoundry-audio-api
+  name: TrueFoundry Audio API
+  description: Speech and audio processing
+  humanURL: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  baseURL: https://gateway.truefoundry.ai/api/llm
+  tags:
+  - Audio
+  properties:
+  - type: OpenAPI
+    url: openapi/truefoundry-audio-api-openapi.yml
+  - type: Documentation
+    url: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  - type: GettingStarted
+    url: https://www.truefoundry.com/docs/ai-gateway/quick-start
+  - type: Authentication
+    url: https://www.truefoundry.com/docs/ai-gateway/authentication
+  - type: Reference
+    url: https://www.truefoundry.com/docs/api-reference
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/rules/truefoundry-rules.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-schema/truefoundry-chat-completion-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-ld/truefoundry-context.jsonld
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
+- aid: truefoundry:truefoundry-batches-api
+  name: TrueFoundry Batches API
+  description: Batch request processing
+  humanURL: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  baseURL: https://gateway.truefoundry.ai/api/llm
+  tags:
+  - Batches
+  properties:
+  - type: OpenAPI
+    url: openapi/truefoundry-batches-api-openapi.yml
+  - type: Documentation
+    url: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  - type: GettingStarted
+    url: https://www.truefoundry.com/docs/ai-gateway/quick-start
+  - type: Authentication
+    url: https://www.truefoundry.com/docs/ai-gateway/authentication
+  - type: Reference
+    url: https://www.truefoundry.com/docs/api-reference
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/rules/truefoundry-rules.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-schema/truefoundry-chat-completion-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-ld/truefoundry-context.jsonld
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
+- aid: truefoundry:truefoundry-chat-api
+  name: TrueFoundry Chat API
+  description: Chat completion operations for LLM conversation
+  humanURL: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  baseURL: https://gateway.truefoundry.ai/api/llm
+  tags:
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/truefoundry-chat-api-openapi.yml
+  - type: Documentation
+    url: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  - type: GettingStarted
+    url: https://www.truefoundry.com/docs/ai-gateway/quick-start
+  - type: Authentication
+    url: https://www.truefoundry.com/docs/ai-gateway/authentication
+  - type: Reference
+    url: https://www.truefoundry.com/docs/api-reference
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/rules/truefoundry-rules.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-schema/truefoundry-chat-completion-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-ld/truefoundry-context.jsonld
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
+- aid: truefoundry:truefoundry-embeddings-api
+  name: TrueFoundry Embeddings API
+  description: Text embedding operations
+  humanURL: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  baseURL: https://gateway.truefoundry.ai/api/llm
+  tags:
+  - Embeddings
+  properties:
+  - type: OpenAPI
+    url: openapi/truefoundry-embeddings-api-openapi.yml
+  - type: Documentation
+    url: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  - type: GettingStarted
+    url: https://www.truefoundry.com/docs/ai-gateway/quick-start
+  - type: Authentication
+    url: https://www.truefoundry.com/docs/ai-gateway/authentication
+  - type: Reference
+    url: https://www.truefoundry.com/docs/api-reference
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/rules/truefoundry-rules.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-schema/truefoundry-chat-completion-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-ld/truefoundry-context.jsonld
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
+- aid: truefoundry:truefoundry-files-api
+  name: TrueFoundry Files API
+  description: File upload and management
+  humanURL: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  baseURL: https://gateway.truefoundry.ai/api/llm
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/truefoundry-files-api-openapi.yml
+  - type: Documentation
+    url: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  - type: GettingStarted
+    url: https://www.truefoundry.com/docs/ai-gateway/quick-start
+  - type: Authentication
+    url: https://www.truefoundry.com/docs/ai-gateway/authentication
+  - type: Reference
+    url: https://www.truefoundry.com/docs/api-reference
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/rules/truefoundry-rules.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-schema/truefoundry-chat-completion-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-ld/truefoundry-context.jsonld
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
+- aid: truefoundry:truefoundry-images-api
+  name: TrueFoundry Images API
+  description: Image generation and manipulation
+  humanURL: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  baseURL: https://gateway.truefoundry.ai/api/llm
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/truefoundry-images-api-openapi.yml
+  - type: Documentation
+    url: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  - type: GettingStarted
+    url: https://www.truefoundry.com/docs/ai-gateway/quick-start
+  - type: Authentication
+    url: https://www.truefoundry.com/docs/ai-gateway/authentication
+  - type: Reference
+    url: https://www.truefoundry.com/docs/api-reference
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/rules/truefoundry-rules.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-schema/truefoundry-chat-completion-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-ld/truefoundry-context.jsonld
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
+- aid: truefoundry:truefoundry-models-api
+  name: TrueFoundry Models API
+  description: Available model listing
+  humanURL: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  baseURL: https://gateway.truefoundry.ai/api/llm
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/truefoundry-models-api-openapi.yml
+  - type: Documentation
+    url: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  - type: GettingStarted
+    url: https://www.truefoundry.com/docs/ai-gateway/quick-start
+  - type: Authentication
+    url: https://www.truefoundry.com/docs/ai-gateway/authentication
+  - type: Reference
+    url: https://www.truefoundry.com/docs/api-reference
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/rules/truefoundry-rules.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-schema/truefoundry-chat-completion-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-ld/truefoundry-context.jsonld
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
+- aid: truefoundry:truefoundry-moderations-api
+  name: TrueFoundry Moderations API
+  description: Content moderation
+  humanURL: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  baseURL: https://gateway.truefoundry.ai/api/llm
+  tags:
+  - Moderations
+  properties:
+  - type: OpenAPI
+    url: openapi/truefoundry-moderations-api-openapi.yml
+  - type: Documentation
+    url: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  - type: GettingStarted
+    url: https://www.truefoundry.com/docs/ai-gateway/quick-start
+  - type: Authentication
+    url: https://www.truefoundry.com/docs/ai-gateway/authentication
+  - type: Reference
+    url: https://www.truefoundry.com/docs/api-reference
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/rules/truefoundry-rules.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-schema/truefoundry-chat-completion-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-ld/truefoundry-context.jsonld
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
+- aid: truefoundry:truefoundry-rerank-api
+  name: TrueFoundry Rerank API
+  description: Reranking for search relevance
+  humanURL: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  baseURL: https://gateway.truefoundry.ai/api/llm
+  tags:
+  - Rerank
+  properties:
+  - type: OpenAPI
+    url: openapi/truefoundry-rerank-api-openapi.yml
+  - type: Documentation
+    url: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
+  - type: GettingStarted
+    url: https://www.truefoundry.com/docs/ai-gateway/quick-start
+  - type: Authentication
+    url: https://www.truefoundry.com/docs/ai-gateway/authentication
+  - type: Reference
+    url: https://www.truefoundry.com/docs/api-reference
+  - type: SpectralRules
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/rules/truefoundry-rules.yml
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-schema/truefoundry-chat-completion-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/json-ld/truefoundry-context.jsonld
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
 common:
   - type: AgentCard
     url: a2a/truefoundry-a2a.yml
