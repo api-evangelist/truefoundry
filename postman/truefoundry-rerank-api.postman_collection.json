@@ -1,0 +1,140 @@
+{
+  "info": {
+    "_postman_id": "7467e6af-0a51-4ade-a4b5-6bdcfa316dd6",
+    "name": "TrueFoundry AI Gateway Audio Rerank API",
+    "description": "The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.\n\nContact Support:\n Name: TrueFoundry Support\n Email: support@truefoundry.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:20:02.000Z",
+    "updatedAt": "2026-07-28T03:20:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7467e6af-0a51-4ade-a4b5-6bdcfa316dd6"
+  },
+  "item": [
+    {
+      "name": "rerank",
+      "item": [
+        {
+          "name": "Rerank Documents",
+          "id": "28b528a0-2703-4f3e-9908-0217b6aa7d18",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"query\": \"<string>\",\n  \"documents\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"top_n\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rerank",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rerank"
+              ]
+            },
+            "description": "Rerank a list of documents by relevance to a query."
+          },
+          "response": [
+            {
+              "id": "0421f6e1-80db-433f-b628-a31ffa5a9338",
+              "name": "Reranked results",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"query\": \"<string>\",\n  \"documents\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"top_n\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rerank",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rerank"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"model\": \"<string>\",\n  \"results\": [\n    {\n      \"index\": \"<integer>\",\n      \"relevance_score\": \"<number>\",\n      \"document\": \"<string>\"\n    },\n    {\n      \"index\": \"<integer>\",\n      \"relevance_score\": \"<number>\",\n      \"document\": \"<string>\"\n    }\n  ],\n  \"usage\": {}\n}",
+              "createdAt": "2026-07-28T03:20:03.000Z",
+              "updatedAt": "2026-07-28T03:20:03.000Z",
+              "uid": "35240-0421f6e1-80db-433f-b628-a31ffa5a9338"
+            }
+          ],
+          "createdAt": "2026-07-28T03:20:03.000Z",
+          "updatedAt": "2026-07-28T03:20:03.000Z",
+          "uid": "35240-28b528a0-2703-4f3e-9908-0217b6aa7d18"
+        }
+      ],
+      "id": "0de7603c-c767-496a-b9f3-463cc00e663e",
+      "createdAt": "2026-07-28T03:20:03.000Z",
+      "updatedAt": "2026-07-28T03:20:03.000Z",
+      "uid": "35240-0de7603c-c767-496a-b9f3-463cc00e663e"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.truefoundry.com/api/llm"
+    }
+  ]
+}

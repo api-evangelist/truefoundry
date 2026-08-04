@@ -1,0 +1,252 @@
+{
+  "info": {
+    "_postman_id": "007e0de0-816f-4dcc-8626-0e22cbef2201",
+    "name": "TrueFoundry AI Gateway Audio Embeddings API",
+    "description": "The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.\n\nContact Support:\n Name: TrueFoundry Support\n Email: support@truefoundry.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:19:55.000Z",
+    "updatedAt": "2026-07-28T03:19:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-007e0de0-816f-4dcc-8626-0e22cbef2201"
+  },
+  "item": [
+    {
+      "name": "embeddings",
+      "item": [
+        {
+          "name": "Create Embeddings",
+          "id": "4d450be8-1013-4546-b4a3-739b598350e6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"encoding_format\": \"float\",\n  \"dimensions\": \"<integer>\",\n  \"user\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/embeddings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "embeddings"
+              ]
+            },
+            "description": "Generate vector embeddings for input text. Used for semantic search, retrieval-augmented generation (RAG), and similarity comparisons."
+          },
+          "response": [
+            {
+              "id": "e0823b0b-30ec-41c7-acb4-2ae9054b7efc",
+              "name": "Embedding vectors",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"encoding_format\": \"float\",\n  \"dimensions\": \"<integer>\",\n  \"user\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/embeddings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "embeddings"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"object\": \"embedding\",\n      \"index\": \"<integer>\",\n      \"embedding\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    },\n    {\n      \"object\": \"embedding\",\n      \"index\": \"<integer>\",\n      \"embedding\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    }\n  ],\n  \"model\": \"<string>\",\n  \"usage\": {\n    \"prompt_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:19:55.000Z",
+              "updatedAt": "2026-07-28T03:19:55.000Z",
+              "uid": "35240-e0823b0b-30ec-41c7-acb4-2ae9054b7efc"
+            },
+            {
+              "id": "80146649-8fa8-45d1-88b1-f9a1e4b8b5ca",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"encoding_format\": \"float\",\n  \"dimensions\": \"<integer>\",\n  \"user\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/embeddings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "embeddings"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:19:55.000Z",
+              "updatedAt": "2026-07-28T03:19:55.000Z",
+              "uid": "35240-80146649-8fa8-45d1-88b1-f9a1e4b8b5ca"
+            },
+            {
+              "id": "0ad3a5de-7638-4a88-b7fe-f26ce64d034d",
+              "name": "Unauthorized - invalid or missing API key",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"encoding_format\": \"float\",\n  \"dimensions\": \"<integer>\",\n  \"user\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/embeddings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "embeddings"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:19:55.000Z",
+              "updatedAt": "2026-07-28T03:19:55.000Z",
+              "uid": "35240-0ad3a5de-7638-4a88-b7fe-f26ce64d034d"
+            }
+          ],
+          "createdAt": "2026-07-28T03:19:55.000Z",
+          "updatedAt": "2026-07-28T03:19:55.000Z",
+          "uid": "35240-4d450be8-1013-4546-b4a3-739b598350e6"
+        }
+      ],
+      "id": "b93277ad-9cd6-4162-af88-70b8f10ca90c",
+      "createdAt": "2026-07-28T03:19:55.000Z",
+      "updatedAt": "2026-07-28T03:19:55.000Z",
+      "uid": "35240-b93277ad-9cd6-4162-af88-70b8f10ca90c"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.truefoundry.com/api/llm"
+    }
+  ]
+}

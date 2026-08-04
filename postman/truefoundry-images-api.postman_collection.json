@@ -1,0 +1,265 @@
+{
+  "info": {
+    "_postman_id": "c8d2478f-3c90-41c5-8e5b-337b850a1fdc",
+    "name": "TrueFoundry AI Gateway Audio Images API",
+    "description": "The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.\n\nContact Support:\n Name: TrueFoundry Support\n Email: support@truefoundry.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:19:57.000Z",
+    "updatedAt": "2026-07-28T03:19:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c8d2478f-3c90-41c5-8e5b-337b850a1fdc"
+  },
+  "item": [
+    {
+      "name": "images",
+      "item": [
+        {
+          "name": "generations",
+          "item": [
+            {
+              "name": "Generate Images",
+              "id": "c325530c-c6e2-409b-9627-cbc10270b4f8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"n\": 1,\n  \"size\": \"1792x1024\",\n  \"quality\": \"hd\",\n  \"response_format\": \"b64_json\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/images/generations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "images",
+                    "generations"
+                  ]
+                },
+                "description": "Generate images from text prompts."
+              },
+              "response": [
+                {
+                  "id": "d4bf009d-737b-4306-82ff-01dfce88b619",
+                  "name": "Generated images",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"n\": 1,\n  \"size\": \"1792x1024\",\n  \"quality\": \"hd\",\n  \"response_format\": \"b64_json\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/images/generations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "images",
+                        "generations"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"created\": \"<integer>\",\n  \"data\": [\n    {\n      \"url\": \"<uri>\",\n      \"b64_json\": \"<string>\",\n      \"revised_prompt\": \"<string>\"\n    },\n    {\n      \"url\": \"<uri>\",\n      \"b64_json\": \"<string>\",\n      \"revised_prompt\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:19:57.000Z",
+                  "updatedAt": "2026-07-28T03:19:57.000Z",
+                  "uid": "35240-d4bf009d-737b-4306-82ff-01dfce88b619"
+                },
+                {
+                  "id": "965eb414-8323-4fb3-bdf6-259dc96d51de",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"n\": 1,\n  \"size\": \"1792x1024\",\n  \"quality\": \"hd\",\n  \"response_format\": \"b64_json\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/images/generations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "images",
+                        "generations"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:19:57.000Z",
+                  "updatedAt": "2026-07-28T03:19:57.000Z",
+                  "uid": "35240-965eb414-8323-4fb3-bdf6-259dc96d51de"
+                },
+                {
+                  "id": "c387e640-7ecd-4f3c-878c-509275b47857",
+                  "name": "Unauthorized - invalid or missing API key",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"n\": 1,\n  \"size\": \"1792x1024\",\n  \"quality\": \"hd\",\n  \"response_format\": \"b64_json\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/images/generations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "images",
+                        "generations"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:19:57.000Z",
+                  "updatedAt": "2026-07-28T03:19:57.000Z",
+                  "uid": "35240-c387e640-7ecd-4f3c-878c-509275b47857"
+                }
+              ],
+              "createdAt": "2026-07-28T03:19:57.000Z",
+              "updatedAt": "2026-07-28T03:19:57.000Z",
+              "uid": "35240-c325530c-c6e2-409b-9627-cbc10270b4f8"
+            }
+          ],
+          "id": "a9609592-8d85-433a-a7f0-3396c24055c3",
+          "createdAt": "2026-07-28T03:19:57.000Z",
+          "updatedAt": "2026-07-28T03:19:57.000Z",
+          "uid": "35240-a9609592-8d85-433a-a7f0-3396c24055c3"
+        }
+      ],
+      "id": "cc744161-b3ba-4423-a3af-f5a00d98a55c",
+      "createdAt": "2026-07-28T03:19:57.000Z",
+      "updatedAt": "2026-07-28T03:19:57.000Z",
+      "uid": "35240-cc744161-b3ba-4423-a3af-f5a00d98a55c"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.truefoundry.com/api/llm"
+    }
+  ]
+}

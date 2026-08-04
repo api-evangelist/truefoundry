@@ -360,6 +360,8 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/truefoundry/overview
   - type: AgentCard
     url: a2a/truefoundry-a2a.yml
     name: A2A Agent Card

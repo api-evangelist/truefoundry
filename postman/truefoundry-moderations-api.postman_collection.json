@@ -1,0 +1,140 @@
+{
+  "info": {
+    "_postman_id": "ca2154bf-f0f0-475a-899b-eb013423027a",
+    "name": "TrueFoundry AI Gateway Audio Moderations API",
+    "description": "The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.\n\nContact Support:\n Name: TrueFoundry Support\n Email: support@truefoundry.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:20:00.000Z",
+    "updatedAt": "2026-07-28T03:20:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ca2154bf-f0f0-475a-899b-eb013423027a"
+  },
+  "item": [
+    {
+      "name": "moderations",
+      "item": [
+        {
+          "name": "Create Moderation",
+          "id": "83838685-59da-4519-889d-18c742ff1253",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/moderations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "moderations"
+              ]
+            },
+            "description": "Checks whether text violates content policy."
+          },
+          "response": [
+            {
+              "id": "3aac9beb-64d6-401b-acc3-78e8e3c0010d",
+              "name": "Moderation result",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/moderations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "moderations"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"model\": \"<string>\",\n  \"results\": [\n    {\n      \"flagged\": \"<boolean>\",\n      \"categories\": {},\n      \"category_scores\": {}\n    },\n    {\n      \"flagged\": \"<boolean>\",\n      \"categories\": {},\n      \"category_scores\": {}\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:20:01.000Z",
+              "updatedAt": "2026-07-28T03:20:01.000Z",
+              "uid": "35240-3aac9beb-64d6-401b-acc3-78e8e3c0010d"
+            }
+          ],
+          "createdAt": "2026-07-28T03:20:01.000Z",
+          "updatedAt": "2026-07-28T03:20:01.000Z",
+          "uid": "35240-83838685-59da-4519-889d-18c742ff1253"
+        }
+      ],
+      "id": "276392ea-ca48-4f38-b84e-309a33d09d53",
+      "createdAt": "2026-07-28T03:20:01.000Z",
+      "updatedAt": "2026-07-28T03:20:01.000Z",
+      "uid": "35240-276392ea-ca48-4f38-b84e-309a33d09d53"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.truefoundry.com/api/llm"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "provider": "truefoundry",
+  "sources": [
+    "truefoundry-audio-api-openapi.yml",
+    "truefoundry-batches-api-openapi.yml",
+    "truefoundry-chat-api-openapi.yml",
+    "truefoundry-embeddings-api-openapi.yml",
+    "truefoundry-files-api-openapi.yml",
+    "truefoundry-images-api-openapi.yml",
+    "truefoundry-models-api-openapi.yml",
+    "truefoundry-moderations-api-openapi.yml",
+    "truefoundry-rerank-api-openapi.yml"
+  ],
+  "outputs": [
+    "truefoundry-audio-api-openapi.yml",
+    "truefoundry-batches-api-openapi.yml",
+    "truefoundry-chat-api-openapi.yml",
+    "truefoundry-embeddings-api-openapi.yml",
+    "truefoundry-files-api-openapi.yml",
+    "truefoundry-images-api-openapi.yml",
+    "truefoundry-models-api-openapi.yml",
+    "truefoundry-moderations-api-openapi.yml",
+    "truefoundry-rerank-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

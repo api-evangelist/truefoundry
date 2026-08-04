@@ -1,0 +1,347 @@
+{
+  "info": {
+    "_postman_id": "10b2a34b-81c9-404e-b4f7-e27f981f153d",
+    "name": "TrueFoundry AI Gateway Audio Chat API",
+    "description": "The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.\n\nContact Support:\n Name: TrueFoundry Support\n Email: support@truefoundry.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:19:54.000Z",
+    "updatedAt": "2026-07-28T03:19:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-10b2a34b-81c9-404e-b4f7-e27f981f153d"
+  },
+  "item": [
+    {
+      "name": "chat",
+      "item": [
+        {
+          "name": "completions",
+          "item": [
+            {
+              "name": "Create Chat Completion",
+              "id": "c4ff7adf-3cda-429f-ab74-5190a8dad01d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Optional metadata JSON string for request logging",
+                    "key": "x-tfy-metadata",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tool_calls\": \"<array>\",\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tool_calls\": \"<array>\",\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"required\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"n\": 1,\n  \"stream\": false,\n  \"max_tokens\": \"<integer>\",\n  \"stop\": \"<string>\",\n  \"presence_penalty\": \"<number>\",\n  \"frequency_penalty\": \"<number>\",\n  \"logprobs\": \"<boolean>\",\n  \"user\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "chat",
+                    "completions"
+                  ]
+                },
+                "description": "Generate chat-based completions using the specified model. Supports streaming, tool calling, and all OpenAI-compatible parameters. Routes to 1000+ LLMs across 30+ providers based on the model identifier."
+              },
+              "response": [
+                {
+                  "id": "c105aff0-2f28-466a-ac60-45d25e537d86",
+                  "name": "Chat completion result",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Optional metadata JSON string for request logging",
+                        "key": "x-tfy-metadata",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tool_calls\": \"<array>\",\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tool_calls\": \"<array>\",\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"required\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"n\": 1,\n  \"stream\": false,\n  \"max_tokens\": \"<integer>\",\n  \"stop\": \"<string>\",\n  \"presence_penalty\": \"<number>\",\n  \"frequency_penalty\": \"<number>\",\n  \"logprobs\": \"<boolean>\",\n  \"user\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/chat/completions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "chat",
+                        "completions"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"chat.completion\",\n  \"created\": \"<integer>\",\n  \"model\": \"<string>\",\n  \"choices\": [\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\",\n        \"tool_calls\": \"<array>\"\n      },\n      \"finish_reason\": \"length\",\n      \"logprobs\": {}\n    },\n    {\n      \"index\": \"<integer>\",\n      \"message\": {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\",\n        \"tool_calls\": \"<array>\"\n      },\n      \"finish_reason\": \"tool_calls\",\n      \"logprobs\": {}\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": \"<integer>\",\n    \"completion_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\",\n    \"prompt_tokens_details\": {},\n    \"completion_tokens_details\": {}\n  },\n  \"service_tier\": \"<string>\",\n  \"system_fingerprint\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:19:54.000Z",
+                  "updatedAt": "2026-07-28T03:19:54.000Z",
+                  "uid": "35240-c105aff0-2f28-466a-ac60-45d25e537d86"
+                },
+                {
+                  "id": "34605211-be41-4aea-8cdd-91b01991b442",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Optional metadata JSON string for request logging",
+                        "key": "x-tfy-metadata",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tool_calls\": \"<array>\",\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tool_calls\": \"<array>\",\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"required\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"n\": 1,\n  \"stream\": false,\n  \"max_tokens\": \"<integer>\",\n  \"stop\": \"<string>\",\n  \"presence_penalty\": \"<number>\",\n  \"frequency_penalty\": \"<number>\",\n  \"logprobs\": \"<boolean>\",\n  \"user\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/chat/completions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "chat",
+                        "completions"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:19:54.000Z",
+                  "updatedAt": "2026-07-28T03:19:54.000Z",
+                  "uid": "35240-34605211-be41-4aea-8cdd-91b01991b442"
+                },
+                {
+                  "id": "62001e51-dffd-46e2-a5f3-248f2967c09e",
+                  "name": "Unauthorized - invalid or missing API key",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Optional metadata JSON string for request logging",
+                        "key": "x-tfy-metadata",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tool_calls\": \"<array>\",\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tool_calls\": \"<array>\",\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"required\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"n\": 1,\n  \"stream\": false,\n  \"max_tokens\": \"<integer>\",\n  \"stop\": \"<string>\",\n  \"presence_penalty\": \"<number>\",\n  \"frequency_penalty\": \"<number>\",\n  \"logprobs\": \"<boolean>\",\n  \"user\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/chat/completions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "chat",
+                        "completions"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:19:54.000Z",
+                  "updatedAt": "2026-07-28T03:19:54.000Z",
+                  "uid": "35240-62001e51-dffd-46e2-a5f3-248f2967c09e"
+                },
+                {
+                  "id": "f7e48a12-053d-4041-9420-c239a6d7cf24",
+                  "name": "Too many requests - rate limit exceeded",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Optional metadata JSON string for request logging",
+                        "key": "x-tfy-metadata",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tool_calls\": \"<array>\",\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tool_calls\": \"<array>\",\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"required\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"n\": 1,\n  \"stream\": false,\n  \"max_tokens\": \"<integer>\",\n  \"stop\": \"<string>\",\n  \"presence_penalty\": \"<number>\",\n  \"frequency_penalty\": \"<number>\",\n  \"logprobs\": \"<boolean>\",\n  \"user\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/chat/completions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "chat",
+                        "completions"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:19:54.000Z",
+                  "updatedAt": "2026-07-28T03:19:54.000Z",
+                  "uid": "35240-f7e48a12-053d-4041-9420-c239a6d7cf24"
+                }
+              ],
+              "createdAt": "2026-07-28T03:19:54.000Z",
+              "updatedAt": "2026-07-28T03:19:54.000Z",
+              "uid": "35240-c4ff7adf-3cda-429f-ab74-5190a8dad01d"
+            }
+          ],
+          "id": "61028266-8b23-46bc-89b0-e43670db0bcd",
+          "createdAt": "2026-07-28T03:19:54.000Z",
+          "updatedAt": "2026-07-28T03:19:54.000Z",
+          "uid": "35240-61028266-8b23-46bc-89b0-e43670db0bcd"
+        }
+      ],
+      "id": "a3a6db9d-a398-485d-b669-7c2edcedc759",
+      "createdAt": "2026-07-28T03:19:54.000Z",
+      "updatedAt": "2026-07-28T03:19:54.000Z",
+      "uid": "35240-a3a6db9d-a398-485d-b669-7c2edcedc759"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.truefoundry.com/api/llm"
+    }
+  ]
+}

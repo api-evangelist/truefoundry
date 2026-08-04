@@ -1,0 +1,942 @@
+openapi: 3.0.3
+info:
+  title: TrueFoundry AI Gateway API
+  description: >-
+    The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing
+    unified access to 1000+ language models across 30+ providers through a single
+    endpoint. It supports chat completions, embeddings, image generation, audio
+    processing, batch operations, file management, content moderation, and model
+    management. The gateway provides centralized authentication, rate limiting,
+    budget controls, observability, and MCP server orchestration.
+  version: 1.0.0
+  contact:
+    name: TrueFoundry Support
+    url: https://www.truefoundry.com/
+    email: support@truefoundry.com
+  termsOfService: https://www.truefoundry.com/privacy-policy
+servers:
+  - url: https://app.truefoundry.com/api/llm
+    description: TrueFoundry AI Gateway (default control plane)
+  - url: https://{control_plane_url}/api/llm
+    description: Self-hosted TrueFoundry control plane
+    variables:
+      control_plane_url:
+        default: app.truefoundry.com
+        description: Your TrueFoundry control plane URL
+security:
+  - BearerAuth: []
+tags:
+  - name: Chat
+    description: Chat completion operations for LLM conversation
+  - name: Embeddings
+    description: Text embedding operations
+  - name: Images
+    description: Image generation and manipulation
+  - name: Audio
+    description: Speech and audio processing
+  - name: Files
+    description: File upload and management
+  - name: Batches
+    description: Batch request processing
+  - name: Moderations
+    description: Content moderation
+  - name: Models
+    description: Available model listing
+  - name: Rerank
+    description: Reranking for search relevance
+paths:
+  /chat/completions:
+    post:
+      summary: Create Chat Completion
+      description: >-
+        Generate chat-based completions using the specified model. Supports
+        streaming, tool calling, and all OpenAI-compatible parameters. Routes
+        to 1000+ LLMs across 30+ providers based on the model identifier.
+      operationId: createChatCompletion
+      tags:
+        - Chat
+      parameters:
+        - name: x-tfy-metadata
+          in: header
+          required: false
+          description: Optional metadata JSON string for request logging
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+      responses:
+        '200':
+          description: Chat completion result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionResponse'
+            text/event-stream:
+              schema:
+                type: string
+                description: SSE stream of completion chunks when stream=true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /embeddings:
+    post:
+      summary: Create Embeddings
+      description: >-
+        Generate vector embeddings for input text. Used for semantic search,
+        retrieval-augmented generation (RAG), and similarity comparisons.
+      operationId: createEmbeddings
+      tags:
+        - Embeddings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddingRequest'
+      responses:
+        '200':
+          description: Embedding vectors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddingResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /images/generations:
+    post:
+      summary: Generate Images
+      description: Generate images from text prompts.
+      operationId: generateImages
+      tags:
+        - Images
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageGenerationRequest'
+      responses:
+        '200':
+          description: Generated images
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /audio/speech:
+    post:
+      summary: Create Speech
+      description: Generate audio speech from text input (text-to-speech).
+      operationId: createSpeech
+      tags:
+        - Audio
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - model
+                - input
+                - voice
+              properties:
+                model:
+                  type: string
+                  description: TTS model identifier
+                input:
+                  type: string
+                  description: Text to synthesize
+                voice:
+                  type: string
+                  description: Voice selection
+                response_format:
+                  type: string
+                  enum:
+                    - mp3
+                    - opus
+                    - aac
+                    - flac
+                speed:
+                  type: number
+                  minimum: 0.25
+                  maximum: 4.0
+      responses:
+        '200':
+          description: Audio binary data
+          content:
+            audio/mpeg:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /audio/transcriptions:
+    post:
+      summary: Create Transcription
+      description: Transcribe audio to text (speech-to-text).
+      operationId: createTranscription
+      tags:
+        - Audio
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+                - model
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Audio file to transcribe
+                model:
+                  type: string
+                language:
+                  type: string
+                  description: ISO 639-1 language code
+                prompt:
+                  type: string
+                response_format:
+                  type: string
+                  enum:
+                    - json
+                    - text
+                    - srt
+                    - verbose_json
+                    - vtt
+      responses:
+        '200':
+          description: Transcription result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /files:
+    get:
+      summary: List Files
+      description: Returns a list of uploaded files.
+      operationId: listFiles
+      tags:
+        - Files
+      parameters:
+        - name: purpose
+          in: query
+          description: Filter by file purpose
+          schema:
+            type: string
+            enum:
+              - assistants
+              - batch
+              - fine-tune
+      responses:
+        '200':
+          description: List of files
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    enum:
+                      - list
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FileObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      summary: Upload File
+      description: Upload a file for use with the API.
+      operationId: uploadFile
+      tags:
+        - Files
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+                - purpose
+              properties:
+                file:
+                  type: string
+                  format: binary
+                purpose:
+                  type: string
+                  enum:
+                    - assistants
+                    - batch
+                    - fine-tune
+      responses:
+        '200':
+          description: Uploaded file metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileObject'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /files/{file_id}:
+    get:
+      summary: Get File
+      description: Returns metadata for a specific file.
+      operationId: getFile
+      tags:
+        - Files
+      parameters:
+        - name: file_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileObject'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Delete File
+      description: Deletes a file.
+      operationId: deleteFile
+      tags:
+        - Files
+      parameters:
+        - name: file_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deletion confirmation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  object:
+                    type: string
+                  deleted:
+                    type: boolean
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /batches:
+    post:
+      summary: Create Batch
+      description: Create a batch of API requests for async processing.
+      operationId: createBatch
+      tags:
+        - Batches
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - input_file_id
+                - endpoint
+                - completion_window
+              properties:
+                input_file_id:
+                  type: string
+                  description: File ID of JSONL input file
+                endpoint:
+                  type: string
+                  enum:
+                    - /chat/completions
+                    - /embeddings
+                completion_window:
+                  type: string
+                  enum:
+                    - 24h
+                metadata:
+                  type: object
+      responses:
+        '200':
+          description: Batch object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchObject'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /batches/{batch_id}:
+    get:
+      summary: Get Batch
+      description: Retrieve the status of a batch.
+      operationId: getBatch
+      tags:
+        - Batches
+      parameters:
+        - name: batch_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Batch status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchObject'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /moderations:
+    post:
+      summary: Create Moderation
+      description: Checks whether text violates content policy.
+      operationId: createModeration
+      tags:
+        - Moderations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - input
+              properties:
+                input:
+                  oneOf:
+                    - type: string
+                    - type: array
+                      items:
+                        type: string
+                model:
+                  type: string
+                  description: Moderation model to use
+      responses:
+        '200':
+          description: Moderation result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  model:
+                    type: string
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        flagged:
+                          type: boolean
+                        categories:
+                          type: object
+                        category_scores:
+                          type: object
+  /models:
+    get:
+      summary: List Models
+      description: Returns a list of available models accessible through the gateway.
+      operationId: listModels
+      tags:
+        - Models
+      responses:
+        '200':
+          description: Model list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    enum:
+                      - list
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ModelObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /rerank:
+    post:
+      summary: Rerank Documents
+      description: Rerank a list of documents by relevance to a query.
+      operationId: rerankDocuments
+      tags:
+        - Rerank
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - model
+                - query
+                - documents
+              properties:
+                model:
+                  type: string
+                query:
+                  type: string
+                  description: Query text for relevance scoring
+                documents:
+                  type: array
+                  items:
+                    type: string
+                  description: Documents to rerank
+                top_n:
+                  type: integer
+                  description: Number of top results to return
+      responses:
+        '200':
+          description: Reranked results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  model:
+                    type: string
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: integer
+                        relevance_score:
+                          type: number
+                        document:
+                          type: string
+                  usage:
+                    type: object
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: TrueFoundry API key (JWT format)
+  schemas:
+    ChatCompletionRequest:
+      type: object
+      required:
+        - model
+        - messages
+      properties:
+        model:
+          type: string
+          description: >-
+            Model identifier (e.g., gpt-4o, claude-3-5-sonnet-20241022,
+            gemini-2.0-flash). Use the provider's model ID as displayed in
+            TrueFoundry's model catalog.
+        messages:
+          type: array
+          description: Conversation history
+          items:
+            type: object
+            required:
+              - role
+              - content
+            properties:
+              role:
+                type: string
+                enum:
+                  - system
+                  - user
+                  - assistant
+                  - function
+                  - tool
+                  - developer
+              content:
+                oneOf:
+                  - type: string
+                  - type: array
+              name:
+                type: string
+              tool_calls:
+                type: array
+              tool_call_id:
+                type: string
+        tools:
+          type: array
+          description: Tool definitions for function calling
+          items:
+            type: object
+        tool_choice:
+          description: Controls tool usage
+          oneOf:
+            - type: string
+              enum:
+                - none
+                - auto
+                - required
+            - type: object
+        temperature:
+          type: number
+          minimum: 0
+          maximum: 2
+          description: Sampling randomness (0=deterministic)
+        top_p:
+          type: number
+          minimum: 0
+          maximum: 1
+        top_k:
+          type: integer
+          minimum: 1
+        n:
+          type: integer
+          minimum: 1
+          default: 1
+        stream:
+          type: boolean
+          default: false
+        max_tokens:
+          type: integer
+          minimum: 1
+        stop:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+        presence_penalty:
+          type: number
+          minimum: -2
+          maximum: 2
+        frequency_penalty:
+          type: number
+          minimum: -2
+          maximum: 2
+        logprobs:
+          type: boolean
+        user:
+          type: string
+          description: End-user identifier for monitoring
+    ChatCompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          enum:
+            - chat.completion
+        created:
+          type: integer
+          format: unix-timestamp
+        model:
+          type: string
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              index:
+                type: integer
+              message:
+                type: object
+                properties:
+                  role:
+                    type: string
+                  content:
+                    type: string
+                  tool_calls:
+                    type: array
+              finish_reason:
+                type: string
+                enum:
+                  - stop
+                  - length
+                  - tool_calls
+                  - content_filter
+              logprobs:
+                type: object
+        usage:
+          type: object
+          properties:
+            prompt_tokens:
+              type: integer
+            completion_tokens:
+              type: integer
+            total_tokens:
+              type: integer
+            prompt_tokens_details:
+              type: object
+            completion_tokens_details:
+              type: object
+        service_tier:
+          type: string
+        system_fingerprint:
+          type: string
+    EmbeddingRequest:
+      type: object
+      required:
+        - model
+        - input
+      properties:
+        model:
+          type: string
+          description: Embedding model identifier
+        input:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          description: Text to embed
+        encoding_format:
+          type: string
+          enum:
+            - float
+            - base64
+          default: float
+        dimensions:
+          type: integer
+          description: Embedding vector dimensions (model-specific)
+        user:
+          type: string
+    EmbeddingResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+            - list
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              object:
+                type: string
+                enum:
+                  - embedding
+              index:
+                type: integer
+              embedding:
+                type: array
+                items:
+                  type: number
+        model:
+          type: string
+        usage:
+          type: object
+          properties:
+            prompt_tokens:
+              type: integer
+            total_tokens:
+              type: integer
+    ImageGenerationRequest:
+      type: object
+      required:
+        - prompt
+        - model
+      properties:
+        model:
+          type: string
+          description: Image generation model identifier
+        prompt:
+          type: string
+          description: Text description of the image to generate
+        n:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 1
+        size:
+          type: string
+          enum:
+            - 256x256
+            - 512x512
+            - 1024x1024
+            - 1792x1024
+            - 1024x1792
+        quality:
+          type: string
+          enum:
+            - standard
+            - hd
+        response_format:
+          type: string
+          enum:
+            - url
+            - b64_json
+    ImageGenerationResponse:
+      type: object
+      properties:
+        created:
+          type: integer
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                format: uri
+              b64_json:
+                type: string
+              revised_prompt:
+                type: string
+    FileObject:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          enum:
+            - file
+        bytes:
+          type: integer
+        created_at:
+          type: integer
+        filename:
+          type: string
+        purpose:
+          type: string
+    BatchObject:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          enum:
+            - batch
+        endpoint:
+          type: string
+        status:
+          type: string
+          enum:
+            - validating
+            - failed
+            - in_progress
+            - finalizing
+            - completed
+            - expired
+            - cancelling
+            - cancelled
+        input_file_id:
+          type: string
+        completion_window:
+          type: string
+        created_at:
+          type: integer
+        completed_at:
+          type: integer
+        request_counts:
+          type: object
+          properties:
+            total:
+              type: integer
+            completed:
+              type: integer
+            failed:
+              type: integer
+    ModelObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Model identifier
+        object:
+          type: string
+          enum:
+            - model
+        created:
+          type: integer
+        owned_by:
+          type: string
+          description: Model provider (e.g., openai, anthropic, google)
+  responses:
+    BadRequest:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+                  code:
+                    type: string
+    Unauthorized:
+      description: Unauthorized - invalid or missing API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+    RateLimited:
+      description: Too many requests - rate limit exceeded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string

@@ -1,0 +1,341 @@
+{
+  "info": {
+    "_postman_id": "3f90244a-eda2-4864-ab8e-acc704556a2d",
+    "name": "TrueFoundry AI Gateway Audio Batches API",
+    "description": "The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.\n\nContact Support:\n Name: TrueFoundry Support\n Email: support@truefoundry.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:19:53.000Z",
+    "updatedAt": "2026-07-28T03:19:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3f90244a-eda2-4864-ab8e-acc704556a2d"
+  },
+  "item": [
+    {
+      "name": "batches",
+      "item": [
+        {
+          "name": "{batch_id}",
+          "item": [
+            {
+              "name": "Get Batch",
+              "id": "03b9eed0-f63d-4b31-a80f-bb735a434792",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/batches/:batch_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "batches",
+                    ":batch_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "93e44201-d5c1-4527-b02e-e656409f74f4",
+                      "key": "batch_id",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Retrieve the status of a batch."
+              },
+              "response": [
+                {
+                  "id": "52d71732-1c03-4863-8359-5776409671b1",
+                  "name": "Batch status",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/batches/:batch_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "batches",
+                        ":batch_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "batch_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"batch\",\n  \"endpoint\": \"<string>\",\n  \"status\": \"failed\",\n  \"input_file_id\": \"<string>\",\n  \"completion_window\": \"<string>\",\n  \"created_at\": \"<integer>\",\n  \"completed_at\": \"<integer>\",\n  \"request_counts\": {\n    \"total\": \"<integer>\",\n    \"completed\": \"<integer>\",\n    \"failed\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:19:53.000Z",
+                  "updatedAt": "2026-07-28T03:19:53.000Z",
+                  "uid": "35240-52d71732-1c03-4863-8359-5776409671b1"
+                },
+                {
+                  "id": "61bb1662-ab05-4d44-aa50-46f40b6d0bb3",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/batches/:batch_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "batches",
+                        ":batch_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "batch_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:19:53.000Z",
+                  "updatedAt": "2026-07-28T03:19:53.000Z",
+                  "uid": "35240-61bb1662-ab05-4d44-aa50-46f40b6d0bb3"
+                }
+              ],
+              "createdAt": "2026-07-28T03:19:53.000Z",
+              "updatedAt": "2026-07-28T03:19:53.000Z",
+              "uid": "35240-03b9eed0-f63d-4b31-a80f-bb735a434792"
+            }
+          ],
+          "id": "08c7accb-736e-4391-89a3-6d00dd3ccf37",
+          "createdAt": "2026-07-28T03:19:53.000Z",
+          "updatedAt": "2026-07-28T03:19:53.000Z",
+          "uid": "35240-08c7accb-736e-4391-89a3-6d00dd3ccf37"
+        },
+        {
+          "name": "Create Batch",
+          "id": "478d412b-24fa-4c6f-9eb6-48202942f32b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input_file_id\": \"<string>\",\n  \"endpoint\": \"/embeddings\",\n  \"completion_window\": \"24h\",\n  \"metadata\": {}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/batches",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "batches"
+              ]
+            },
+            "description": "Create a batch of API requests for async processing."
+          },
+          "response": [
+            {
+              "id": "6e2b5bba-ee3f-489e-b47e-68d8a25896b0",
+              "name": "Batch object",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input_file_id\": \"<string>\",\n  \"endpoint\": \"/embeddings\",\n  \"completion_window\": \"24h\",\n  \"metadata\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/batches",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "batches"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"batch\",\n  \"endpoint\": \"<string>\",\n  \"status\": \"failed\",\n  \"input_file_id\": \"<string>\",\n  \"completion_window\": \"<string>\",\n  \"created_at\": \"<integer>\",\n  \"completed_at\": \"<integer>\",\n  \"request_counts\": {\n    \"total\": \"<integer>\",\n    \"completed\": \"<integer>\",\n    \"failed\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:19:53.000Z",
+              "updatedAt": "2026-07-28T03:19:53.000Z",
+              "uid": "35240-6e2b5bba-ee3f-489e-b47e-68d8a25896b0"
+            },
+            {
+              "id": "0d28637c-dd2d-4210-a85b-092d40d9b597",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input_file_id\": \"<string>\",\n  \"endpoint\": \"/embeddings\",\n  \"completion_window\": \"24h\",\n  \"metadata\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/batches",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "batches"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:19:53.000Z",
+              "updatedAt": "2026-07-28T03:19:53.000Z",
+              "uid": "35240-0d28637c-dd2d-4210-a85b-092d40d9b597"
+            }
+          ],
+          "createdAt": "2026-07-28T03:19:53.000Z",
+          "updatedAt": "2026-07-28T03:19:53.000Z",
+          "uid": "35240-478d412b-24fa-4c6f-9eb6-48202942f32b"
+        }
+      ],
+      "id": "3de2cde0-0342-4a12-a6db-1100236c4d05",
+      "createdAt": "2026-07-28T03:19:53.000Z",
+      "updatedAt": "2026-07-28T03:19:53.000Z",
+      "uid": "35240-3de2cde0-0342-4a12-a6db-1100236c4d05"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.truefoundry.com/api/llm"
+    }
+  ]
+}

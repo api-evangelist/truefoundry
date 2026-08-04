@@ -1,0 +1,154 @@
+{
+  "info": {
+    "_postman_id": "f83b3fd9-b1bb-4fb4-ae92-cd914375872b",
+    "name": "TrueFoundry AI Gateway Audio Models API",
+    "description": "The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.\n\nContact Support:\n Name: TrueFoundry Support\n Email: support@truefoundry.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:19:57.000Z",
+    "updatedAt": "2026-07-28T03:19:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f83b3fd9-b1bb-4fb4-ae92-cd914375872b"
+  },
+  "item": [
+    {
+      "name": "models",
+      "item": [
+        {
+          "name": "List Models",
+          "id": "fbd3a435-bfc9-47fe-a646-991b54a88fab",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/models",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "models"
+              ]
+            },
+            "description": "Returns a list of available models accessible through the gateway."
+          },
+          "response": [
+            {
+              "id": "c19a585b-da05-4987-8e3c-254c29d47878",
+              "name": "Model list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"object\": \"model\",\n      \"created\": \"<integer>\",\n      \"owned_by\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"object\": \"model\",\n      \"created\": \"<integer>\",\n      \"owned_by\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:19:58.000Z",
+              "updatedAt": "2026-07-28T03:19:58.000Z",
+              "uid": "35240-c19a585b-da05-4987-8e3c-254c29d47878"
+            },
+            {
+              "id": "1894963e-8e9b-4567-abaf-2641936ce1f4",
+              "name": "Unauthorized - invalid or missing API key",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T03:19:58.000Z",
+              "updatedAt": "2026-07-28T03:19:58.000Z",
+              "uid": "35240-1894963e-8e9b-4567-abaf-2641936ce1f4"
+            }
+          ],
+          "createdAt": "2026-07-28T03:19:58.000Z",
+          "updatedAt": "2026-07-28T03:19:58.000Z",
+          "uid": "35240-fbd3a435-bfc9-47fe-a646-991b54a88fab"
+        }
+      ],
+      "id": "8e282a33-c9a6-4721-945e-2ef690cad762",
+      "createdAt": "2026-07-28T03:19:58.000Z",
+      "updatedAt": "2026-07-28T03:19:58.000Z",
+      "uid": "35240-8e282a33-c9a6-4721-945e-2ef690cad762"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.truefoundry.com/api/llm"
+    }
+  ]
+}

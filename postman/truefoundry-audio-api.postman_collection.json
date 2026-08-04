@@ -1,0 +1,504 @@
+{
+  "info": {
+    "_postman_id": "d25af0fe-bee7-4016-bc19-5ae119ca7c61",
+    "name": "TrueFoundry AI Gateway Audio API",
+    "description": "The TrueFoundry AI Gateway API is an OpenAI-compatible proxy layer providing unified access to 1000+ language models across 30+ providers through a single endpoint. It supports chat completions, embeddings, image generation, audio processing, batch operations, file management, content moderation, and model management. The gateway provides centralized authentication, rate limiting, budget controls, observability, and MCP server orchestration.\n\nContact Support:\n Name: TrueFoundry Support\n Email: support@truefoundry.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:19:52.000Z",
+    "updatedAt": "2026-07-28T03:19:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d25af0fe-bee7-4016-bc19-5ae119ca7c61"
+  },
+  "item": [
+    {
+      "name": "audio",
+      "item": [
+        {
+          "name": "speech",
+          "item": [
+            {
+              "name": "Create Speech",
+              "id": "c100ce19-76f8-46c9-8a4e-51f65f12006d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "audio/mpeg"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"voice\": \"<string>\",\n  \"response_format\": \"opus\",\n  \"speed\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/audio/speech",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "audio",
+                    "speech"
+                  ]
+                },
+                "description": "Generate audio speech from text input (text-to-speech)."
+              },
+              "response": [
+                {
+                  "id": "d5d42554-86b1-4e71-af83-a0ad7a61ae63",
+                  "name": "Audio binary data",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "audio/mpeg"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"voice\": \"<string>\",\n  \"response_format\": \"opus\",\n  \"speed\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/audio/speech",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "audio",
+                        "speech"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "audio/mpeg"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<binary>",
+                  "createdAt": "2026-07-28T03:19:52.000Z",
+                  "updatedAt": "2026-07-28T03:19:52.000Z",
+                  "uid": "35240-d5d42554-86b1-4e71-af83-a0ad7a61ae63"
+                },
+                {
+                  "id": "ac11ce3f-267f-413e-9379-156d96e77e08",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"voice\": \"<string>\",\n  \"response_format\": \"opus\",\n  \"speed\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/audio/speech",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "audio",
+                        "speech"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:19:52.000Z",
+                  "updatedAt": "2026-07-28T03:19:52.000Z",
+                  "uid": "35240-ac11ce3f-267f-413e-9379-156d96e77e08"
+                },
+                {
+                  "id": "96716e4a-0c0f-4b5f-a18c-4da5b6f35445",
+                  "name": "Unauthorized - invalid or missing API key",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"voice\": \"<string>\",\n  \"response_format\": \"opus\",\n  \"speed\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/audio/speech",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "audio",
+                        "speech"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:19:52.000Z",
+                  "updatedAt": "2026-07-28T03:19:52.000Z",
+                  "uid": "35240-96716e4a-0c0f-4b5f-a18c-4da5b6f35445"
+                }
+              ],
+              "createdAt": "2026-07-28T03:19:52.000Z",
+              "updatedAt": "2026-07-28T03:19:52.000Z",
+              "uid": "35240-c100ce19-76f8-46c9-8a4e-51f65f12006d"
+            }
+          ],
+          "id": "fdd59199-ccf0-4dc1-ba97-afbb75d07739",
+          "createdAt": "2026-07-28T03:19:52.000Z",
+          "updatedAt": "2026-07-28T03:19:52.000Z",
+          "uid": "35240-fdd59199-ccf0-4dc1-ba97-afbb75d07739"
+        },
+        {
+          "name": "transcriptions",
+          "item": [
+            {
+              "name": "Create Transcription",
+              "id": "09795066-1f4c-4c11-957a-bb42998f7c68",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": "(Required) Audio file to transcribe",
+                      "key": "file",
+                      "type": "file",
+                      "value": null
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "model",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "ISO 639-1 language code",
+                      "key": "language",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "key": "prompt",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": " (This can only be one of json,text,srt,verbose_json,vtt)",
+                      "key": "response_format",
+                      "value": "vtt",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/audio/transcriptions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "audio",
+                    "transcriptions"
+                  ]
+                },
+                "description": "Transcribe audio to text (speech-to-text)."
+              },
+              "response": [
+                {
+                  "id": "d56156c8-202e-459c-bd89-a06a39bdab16",
+                  "name": "Transcription result",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) Audio file to transcribe",
+                          "key": "file",
+                          "type": "file"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "model",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "ISO 639-1 language code",
+                          "key": "language",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "key": "prompt",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": " (This can only be one of json,text,srt,verbose_json,vtt)",
+                          "key": "response_format",
+                          "value": "vtt",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/audio/transcriptions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "audio",
+                        "transcriptions"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"text\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:19:52.000Z",
+                  "updatedAt": "2026-07-28T03:19:52.000Z",
+                  "uid": "35240-d56156c8-202e-459c-bd89-a06a39bdab16"
+                },
+                {
+                  "id": "6a9d0fd4-5bba-4bef-a294-71b6d88b5d46",
+                  "name": "Bad request - invalid parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) Audio file to transcribe",
+                          "key": "file",
+                          "type": "file"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "model",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "ISO 639-1 language code",
+                          "key": "language",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "key": "prompt",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": " (This can only be one of json,text,srt,verbose_json,vtt)",
+                          "key": "response_format",
+                          "value": "vtt",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/audio/transcriptions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "audio",
+                        "transcriptions"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"message\": \"<string>\",\n    \"type\": \"<string>\",\n    \"code\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:19:52.000Z",
+                  "updatedAt": "2026-07-28T03:19:52.000Z",
+                  "uid": "35240-6a9d0fd4-5bba-4bef-a294-71b6d88b5d46"
+                }
+              ],
+              "createdAt": "2026-07-28T03:19:52.000Z",
+              "updatedAt": "2026-07-28T03:19:52.000Z",
+              "uid": "35240-09795066-1f4c-4c11-957a-bb42998f7c68"
+            }
+          ],
+          "id": "4f8df0f6-6934-4e7f-809b-1e50781aad34",
+          "createdAt": "2026-07-28T03:19:52.000Z",
+          "updatedAt": "2026-07-28T03:19:52.000Z",
+          "uid": "35240-4f8df0f6-6934-4e7f-809b-1e50781aad34"
+        }
+      ],
+      "id": "9d83f90b-0554-45d5-8852-5d37b67d4f1b",
+      "createdAt": "2026-07-28T03:19:52.000Z",
+      "updatedAt": "2026-07-28T03:19:52.000Z",
+      "uid": "35240-9d83f90b-0554-45d5-8852-5d37b67d4f1b"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.truefoundry.com/api/llm"
+    }
+  ]
+}
