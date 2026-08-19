@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrueFoundry AI Gateway Audio Rerank API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rerank",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Rerank Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.truefoundry.com/api/llm/rerank",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rerank a list of documents by relevance to a query."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrueFoundry AI Gateway Audio Moderations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Moderations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Moderation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.truefoundry.com/api/llm/moderations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks whether text violates content policy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
