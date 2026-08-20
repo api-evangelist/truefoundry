@@ -46,6 +46,11 @@ apis:
   humanURL: https://www.truefoundry.com/docs
   baseURL: https://app.truefoundry.com/api
   tags:
+  - Deployment
+  - Management
+  - MLOps
+  - Platform
+  tags_raw:
   - Deployments
   - Management
   - MLOps
@@ -82,6 +87,11 @@ apis:
   humanURL: https://www.truefoundry.com/docs/model-registry
   baseURL: https://app.truefoundry.com
   tags:
+  - Machine-Learning
+  - MLOps
+  - Model Registry
+  - Versioning
+  tags_raw:
   - Machine Learning
   - MLOps
   - Model Registry
@@ -215,6 +225,8 @@ apis:
   humanURL: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
   baseURL: https://gateway.truefoundry.ai/api/llm
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -245,6 +257,8 @@ apis:
   humanURL: https://www.truefoundry.com/docs/ai-gateway/intro-to-llm-gateway
   baseURL: https://gateway.truefoundry.ai/api/llm
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
