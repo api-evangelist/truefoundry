@@ -451,6 +451,8 @@ common:
   - name: Agent Skills
     url: https://github.com/truefoundry/skills
     type: AgentSkills
+  - type: Support
+    url: https://www.truefoundry.com/book-demo
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
