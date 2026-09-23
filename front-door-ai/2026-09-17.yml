@@ -1,0 +1,35 @@
+# Front Door AI Index — truefoundry — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: truefoundry
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.truefoundry.com
+  final_host: www.truefoundry.com
+  ownership: own
+  owner: truefoundry
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 50
+  host_score: 50
+  density: 47.94
+  words: 1043
+  tiers:
+    agentic: 15
+    core: 34
+    model: 1
+  ambiguous: 15
+  top_terms:
+    AI: 23
+    agent: 15
+    LLMs: 5
+    ML: 5
+    AI agent: 4
+    MCP: 4
+    RAG: 3
+    agentic: 2
+    prompts: 2
+    Claude: 1
+    gen ai: 1

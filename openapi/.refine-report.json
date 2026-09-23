@@ -1,15 +1,7 @@
 {
   "provider": "truefoundry",
   "sources": [
-    "truefoundry-audio-api-openapi.yml",
-    "truefoundry-batches-api-openapi.yml",
-    "truefoundry-chat-api-openapi.yml",
-    "truefoundry-embeddings-api-openapi.yml",
-    "truefoundry-files-api-openapi.yml",
-    "truefoundry-images-api-openapi.yml",
-    "truefoundry-models-api-openapi.yml",
-    "truefoundry-moderations-api-openapi.yml",
-    "truefoundry-rerank-api-openapi.yml"
+    "_original/truefoundry-ai-gateway-openapi.yml"
   ],
   "outputs": [
     "truefoundry-audio-api-openapi.yml",
@@ -25,6 +17,20 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "truefoundry-ai-gateway-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "truefoundry-audio-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "truefoundry-batches-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "truefoundry-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "truefoundry-embeddings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "truefoundry-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "truefoundry-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "truefoundry-models-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "truefoundry-moderations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "truefoundry-rerank-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
