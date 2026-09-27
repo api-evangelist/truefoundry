@@ -6,17 +6,20 @@ description: >-
   hybrid, or public cloud environments.
 type: Index
 deliveryModel:
-  model: unknown
+  model: saas
+  license_evidence:
+    not_product:
+    - truefoundry/truefoundry-python-sdk
   open_source: unknown
   commercial: true
   callable_host: true
-  label: Delivery model not determined — needs a product licence on record
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
   - openapi
   - pricing
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -39,6 +42,7 @@ tags:
   - Kubernetes
   - LLM Gateway
   - MLOps
+  - A2A
 url: https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/apis.yml
 created: '2026-03-16'
 modified: '2026-05-19'
@@ -98,6 +102,11 @@ apis:
   baseURL: https://app.truefoundry.com
   tags:
   - Kubernetes
+  - Inference
+  - MLOps
+  - Model Serving
+  tags_raw:
+  - Kubernetes
   - LLM Inference
   - MLOps
   - Model Serving
@@ -114,7 +123,7 @@ apis:
   humanURL: https://www.truefoundry.com/docs/model-registry
   baseURL: https://app.truefoundry.com
   tags:
-  - Machine-Learning
+  - Machine Learning
   - MLOps
   - Model Registry
   - Versioning
@@ -123,6 +132,7 @@ apis:
   - MLOps
   - Model Registry
   - Versioning
+  - Machine-Learning
   properties:
   - type: Documentation
     url: https://www.truefoundry.com/docs/model-registry
@@ -456,3 +466,10 @@ common:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://www.truefoundry.com/.well-known/agent-card.json"
+  grade: "conformant"
+  protocol_version: "0.3"
+  control: 404
