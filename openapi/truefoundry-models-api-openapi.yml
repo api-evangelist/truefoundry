@@ -49,6 +49,21 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Unauthorized - invalid or missing API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
   schemas:
     ModelObject:
       type: object
@@ -65,21 +80,6 @@ components:
         owned_by:
           type: string
           description: Model provider (e.g., openai, anthropic, google)
-  responses:
-    Unauthorized:
-      description: Unauthorized - invalid or missing API key
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  type:
-                    type: string
   securitySchemes:
     BearerAuth:
       type: http

@@ -48,65 +48,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    EmbeddingRequest:
-      type: object
-      required:
-      - model
-      - input
-      properties:
-        model:
-          type: string
-          description: Embedding model identifier
-        input:
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-          description: Text to embed
-        encoding_format:
-          type: string
-          enum:
-          - float
-          - base64
-          default: float
-        dimensions:
-          type: integer
-          description: Embedding vector dimensions (model-specific)
-        user:
-          type: string
-    EmbeddingResponse:
-      type: object
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              object:
-                type: string
-                enum:
-                - embedding
-              index:
-                type: integer
-              embedding:
-                type: array
-                items:
-                  type: number
-        model:
-          type: string
-        usage:
-          type: object
-          properties:
-            prompt_tokens:
-              type: integer
-            total_tokens:
-              type: integer
   responses:
     Unauthorized:
       description: Unauthorized - invalid or missing API key
@@ -138,6 +79,65 @@ components:
                     type: string
                   code:
                     type: string
+  schemas:
+    EmbeddingResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              object:
+                type: string
+                enum:
+                - embedding
+              index:
+                type: integer
+              embedding:
+                type: array
+                items:
+                  type: number
+        model:
+          type: string
+        usage:
+          type: object
+          properties:
+            prompt_tokens:
+              type: integer
+            total_tokens:
+              type: integer
+    EmbeddingRequest:
+      type: object
+      required:
+      - model
+      - input
+      properties:
+        model:
+          type: string
+          description: Embedding model identifier
+        input:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: Text to embed
+        encoding_format:
+          type: string
+          enum:
+          - float
+          - base64
+          default: float
+        dimensions:
+          type: integer
+          description: Embedding vector dimensions (model-specific)
+        user:
+          type: string
   securitySchemes:
     BearerAuth:
       type: http
