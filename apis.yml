@@ -411,6 +411,9 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/truefoundry/refs/heads/main/vocabulary/truefoundry-vocabulary.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/truefoundry-capability-edges.yml
+    name: TrueFoundry Business Capability Map
   - type: IssueTracker
     url: https://github.com/truefoundry/truefoundry-python-sdk/issues
   - type: Releases

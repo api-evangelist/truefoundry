@@ -1,0 +1,44 @@
+slug: truefoundry
+provider: TrueFoundry
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Chat
+  spec_file: truefoundry-chat-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /chat/completions 'Create Chat Completion'; schemas ChatCompletionRequest, ChatCompletionResponse
+  reason: LLM chat inference through the AI gateway — not customer messaging or contact-centre chat (no
+    conversation, agent or ticket schemas). This realises AI/ML model usage, mapped to Artificial Intelligence
+    Management.
+- tag: Embeddings
+  spec_file: truefoundry-embeddings-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /embeddings 'Create Embeddings'; schemas EmbeddingRequest, EmbeddingResponse
+  reason: Vector embedding generation from an AI model gateway — purely AI/ML model inference, mapped
+    to Artificial Intelligence Management. No other candidate capability describes this.
+- tag: Images
+  spec_file: truefoundry-images-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /images/generations 'Generate Images'; schemas ImageGenerationRequest, ImageGenerationResponse
+  reason: Generative image model inference via the AI gateway. This is AI model consumption, not marketing
+    content production (no campaign, asset library or publishing surface), so Artificial Intelligence
+    Management is the correct read.
