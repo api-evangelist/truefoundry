@@ -1,24 +1,22 @@
-# Kin Score artifact — truefoundry — 2026-08-25T154045
+# Kin Score artifact — truefoundry — 2026-10-03T024842
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: truefoundry
-  schema_version: 0.14.0
-  scored_at: '2026-08-25'
-  run_ts: 2026-08-25T154045
-  composite: 49.1
+  schema_version: 0.23.0
+  scored_at: '2026-10-03'
+  run_ts: 2026-10-03T024842
+  composite: 50.0
   band: developing
   facets:
-    discoverability: 74.1
-    contract_quality: 64.7
-    governance: 13.6
+    discoverability: 65.0
+    contract_quality: 58.8
+    contract_governance: 27.3
     operational_transparency: 26.3
-    developer_ergonomics: 54.8
-    commercial_clarity: 47.4
-    contract_governance: 13.6
+    developer_ergonomics: 62.4
     access_clarity: 47.4
   agent_readiness:
-    score: 30.3
+    score: 29.6
     band: agent-ready
     dimensions:
       spec_presence: true
@@ -31,7 +29,7 @@ kin_score:
       openapi_examples: false
       rate_limit_signal: documented
       event_surface_described: false
-      agent_skills: true
+      agent_skills: unknown
       well_known_catalog: false
       consent_identity: false
       agent_card: near-conformant
@@ -40,6 +38,12 @@ kin_score:
       protected_resource_metadata: false
       dynamic_client_registration: false
       agentic_commerce: false
+  regulatory:
+    applies: true
+    regime: Horizontal (data, software, accessibility, platform)
+    regime_id: horizontal
+    score: 21.6
+    matched_via: fallback
   provenance:
     agentic_access: derived
     contracts:
