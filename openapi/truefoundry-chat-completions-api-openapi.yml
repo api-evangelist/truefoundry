@@ -20,7 +20,7 @@ servers:
 security:
 - BearerAuth: []
 tags:
-- name: Chat
+- name: Chat Completions
   description: Chat completion operations for LLM conversation
 paths:
   /chat/completions:
@@ -29,7 +29,7 @@ paths:
       description: Generate chat-based completions using the specified model. Supports streaming, tool calling, and all OpenAI-compatible parameters. Routes to 1000+ LLMs across 30+ providers based on the model identifier.
       operationId: createChatCompletion
       tags:
-      - Chat
+      - Chat Completions
       parameters:
       - name: x-tfy-metadata
         in: header
@@ -62,6 +62,20 @@ paths:
           $ref: '#/components/responses/RateLimited'
 components:
   responses:
+    RateLimited:
+      description: Too many requests - rate limit exceeded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
+                    type: string
     Unauthorized:
       description: Unauthorized - invalid or missing API key
       content:
@@ -92,21 +106,63 @@ components:
                     type: string
                   code:
                     type: string
-    RateLimited:
-      description: Too many requests - rate limit exceeded
-      content:
-        application/json:
-          schema:
+  schemas:
+    ChatCompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          enum:
+          - chat.completion
+        created:
+          type: integer
+          format: unix-timestamp
+        model:
+          type: string
+        choices:
+          type: array
+          items:
             type: object
             properties:
-              error:
+              index:
+                type: integer
+              message:
                 type: object
                 properties:
-                  message:
+                  role:
                     type: string
-                  type:
+                  content:
                     type: string
-  schemas:
+                  tool_calls:
+                    type: array
+              finish_reason:
+                type: string
+                enum:
+                - stop
+                - length
+                - tool_calls
+                - content_filter
+              logprobs:
+                type: object
+        usage:
+          type: object
+          properties:
+            prompt_tokens:
+              type: integer
+            completion_tokens:
+              type: integer
+            total_tokens:
+              type: integer
+            prompt_tokens_details:
+              type: object
+            completion_tokens_details:
+              type: object
+        service_tier:
+          type: string
+        system_fingerprint:
+          type: string
     ChatCompletionRequest:
       type: object
       required:
@@ -199,62 +255,6 @@ components:
         user:
           type: string
           description: End-user identifier for monitoring
-    ChatCompletionResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-          enum:
-          - chat.completion
-        created:
-          type: integer
-          format: unix-timestamp
-        model:
-          type: string
-        choices:
-          type: array
-          items:
-            type: object
-            properties:
-              index:
-                type: integer
-              message:
-                type: object
-                properties:
-                  role:
-                    type: string
-                  content:
-                    type: string
-                  tool_calls:
-                    type: array
-              finish_reason:
-                type: string
-                enum:
-                - stop
-                - length
-                - tool_calls
-                - content_filter
-              logprobs:
-                type: object
-        usage:
-          type: object
-          properties:
-            prompt_tokens:
-              type: integer
-            completion_tokens:
-              type: integer
-            total_tokens:
-              type: integer
-            prompt_tokens_details:
-              type: object
-            completion_tokens_details:
-              type: object
-        service_tier:
-          type: string
-        system_fingerprint:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

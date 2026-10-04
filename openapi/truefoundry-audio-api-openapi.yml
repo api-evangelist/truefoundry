@@ -123,20 +123,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
 components:
   responses:
-    Unauthorized:
-      description: Unauthorized - invalid or missing API key
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  type:
-                    type: string
     BadRequest:
       description: Bad request - invalid parameters
       content:
@@ -152,6 +138,20 @@ components:
                   type:
                     type: string
                   code:
+                    type: string
+    Unauthorized:
+      description: Unauthorized - invalid or missing API key
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  type:
                     type: string
   securitySchemes:
     BearerAuth:
