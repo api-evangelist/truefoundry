@@ -20,3 +20,22 @@ edges:
   seller_name: TrueFoundry
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: OpenAI
+  partner: openai
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  evidence: https://github.com/api-evangelist/truefoundry/blob/main/openapi/truefoundry-chat-completions-api-openapi.yml#L4
+  contract_reference:
+    repo: truefoundry
+    spec_file: truefoundry-chat-completions-api-openapi.yml
+    property: description
+    value: OpenAI-compatible
+    note: 'truefoundry declares OpenAI compatibility: ''description: The TrueFoundry AI Gateway API is an OpenAI-compatible
+      proxy layer providing unified access to 1000+ language models across 30+ providers through a'''
+    detected_by: sweep-model-routing.py
+    detected: '2026-10-13'
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
