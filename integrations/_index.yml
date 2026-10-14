@@ -15,3 +15,36 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
+- slug: truefoundry-openai
+  label: OpenAI
+  partner: openai
+  partner_name: OpenAI
+  type: contract
+  channel: provider-built
+  evidence: https://github.com/api-evangelist/truefoundry/blob/main/openapi/truefoundry-chat-completions-api-openapi.yml#L4
+  source: edge
+  relationship: compatible
+  contract_reference:
+    repo: truefoundry
+    spec_file: truefoundry-chat-completions-api-openapi.yml
+    property: description
+    value: OpenAI-compatible
+    note: 'truefoundry declares OpenAI compatibility: ''description: The TrueFoundry AI Gateway API is an OpenAI-compatible
+      proxy layer providing unified access to 1000+ language models across 30+ providers through a'''
+    detected_by: sweep-model-routing.py
+    detected: '2026-10-13'
+  status: not-a-workflow
+  arazzo: null
+- slug: truefoundry-okta-own
+  label: Okta (own)
+  partner: okta
+  partner_name: Okta (own)
+  category: Automation
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.okta.com/integrations/integrator-4577586_truefoundry_2/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
